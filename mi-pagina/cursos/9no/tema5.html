@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox - Guía </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #e8e8e8;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6, #03a9f4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(79, 195, 247, 0.3);
+        }
+
+        .intro {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            color: #4fc3f7;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #4fc3f7;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            color: #81c784;
+            font-size: 1.4rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .demo-container {
+            background: #2a2a3e;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid #3a3a4e;
+        }
+
+        .flex-demo {
+            background: #1e1e2e;
+            border: 2px dashed #4fc3f7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            min-height: 120px;
+        }
+
+        .flex-item {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 1rem;
+            margin: 0.25rem;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .flex-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .flex-item.item2 {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .flex-item.item3 {
+            background: linear-gradient(45deg, #feca57, #ff9ff3);
+            box-shadow: 0 4px 15px rgba(254, 202, 87, 0.3);
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        select, button {
+            background: #3a3a4e;
+            color: #e8e8e8;
+            border: 1px solid #4fc3f7;
+            border-radius: 5px;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        select:focus, button:focus {
+            outline: none;
+            border-color: #29b6f6;
+            box-shadow: 0 0 0 2px rgba(79, 195, 247, 0.2);
+        }
+
+        button {
+            background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #29b6f6, #03a9f4);
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            border: 1px solid #4fc3f7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'CSS';
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #4fc3f7;
+            color: #1a1a2e;
+            padding: 0.2rem 0.8rem;
+            border-radius: 0 0 5px 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .property {
+            color: #81c784;
+        }
+
+        .value {
+            color: #ffb74d;
+        }
+
+        .comment {
+            color: #666;
+            font-style: italic;
+        }
+
+        .axis-demo {
+            position: relative;
+            background: #2a2a3e;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .axis-line {
+            position: absolute;
+            background: #4fc3f7;
+            opacity: 0.7;
+        }
+
+        .main-axis {
+            height: 3px;
+            width: 80%;
+            top: 50%;
+            left: 10%;
+            transform: translateY(-50%);
+        }
+
+        .cross-axis {
+            width: 3px;
+            height: 80%;
+            left: 50%;
+            top: 10%;
+            transform: translateX(-50%);
+        }
+
+        .axis-label {
+            position: absolute;
+            background: rgba(79, 195, 247, 0.9);
+            color: #1a1a2e;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .main-label {
+            right: 5%;
+            top: 45%;
+        }
+
+        .cross-label {
+            top: 5%;
+            left: 55%;
+        }
+
+        .tip {
+            background: linear-gradient(45deg, rgba(129, 199, 132, 0.2), rgba(129, 199, 132, 0.1));
+            border-left: 4px solid #81c784;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .warning {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.1));
+            border-left: 4px solid #ffc107;
+            border-radius: 0 10px 10px 0;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .property-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .property-table th,
+        .property-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .property-table th {
+            background: rgba(79, 195, 247, 0.2);
+            color: #4fc3f7;
+            font-weight: bold;
+        }
+
+        .property-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .property-table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀Una guía para conocer FlexBox c:</h1>
+        
+        <div class="intro">
+            <p><strong>Flexbox</strong> (Flexible Box Layout) es un sistema de diseño unidimensional que te permite organizar elementos de forma flexible y eficiente. Es perfecto para crear layouts responsivos y alinear contenido tanto horizontal como verticalmente.</p>
+            <p>Con Flexbox puedes resolver problemas comunes como centrar elementos, crear columnas de igual altura, y distribuir espacio de manera inteligente.</p>
+        </div>
+
+        <div class="section">
+            <h2>📐 Conceptos Fundamentales</h2>
+            
+            <h3>Contenedor Flex vs Elementos Flex</h3>
+            <p>Para usar Flexbox necesitas dos componentes:</p>
+            <ul style="margin-left: 2rem; margin-bottom: 2rem;">
+                <li><strong>Contenedor Flex (Flex Container):</strong> El elemento padre que tiene <code>display: flex</code></li>
+                <li><strong>Elementos Flex (Flex Items):</strong> Los hijos directos del contenedor flex</li>
+            </ul>
+
+            <div class="axis-demo">
+                <div class="axis-line main-axis"></div>
+                <div class="axis-line cross-axis"></div>
+                <div class="axis-label main-label">Eje Principal</div>
+                <div class="axis-label cross-label">Eje Transversal</div>
+                <div style="text-align: center; padding-top: 4rem;">
+                    <div style="display: inline-block; background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 10px;">
+                        Flexbox trabaja con dos ejes perpendiculares
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <strong>💡 Tip:</strong> El eje principal cambia según la dirección del flex. Si <code>flex-direction: row</code>, el eje principal es horizontal. Si <code>flex-direction: column</code>, es vertical.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎛️ Propiedades del Contenedor</h2>
+
+            <h3>display: flex</h3>
+            <p>Convierte un elemento en un contenedor flex.</p>
+            <div class="code-block">
+<span class="property">.container</span> {
+    <span class="property">display</span>: <span class="value">flex</span>; <span class="comment">/* Activa Flexbox */</span>
+}
+            </div>
+
+            <h3>flex-direction</h3>
+            <p>Define la dirección del eje principal.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>flex-direction:</label>
+                        <select id="flexDirection">
+                            <option value="row">row (por defecto)</option>
+                            <option value="row-reverse">row-reverse</option>
+                            <option value="column">column</option>
+                            <option value="column-reverse">column-reverse</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-demo" id="directionDemo" style="display: flex;">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item item2">2</div>
+                    <div class="flex-item item3">3</div>
+                </div>
+            </div>
+
+            <h3>justify-content</h3>
+            <p>Controla la alineación a lo largo del eje principal.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>justify-content:</label>
+                        <select id="justifyContent">
+                            <option value="flex-start">flex-start</option>
+                            <option value="flex-end">flex-end</option>
+                            <option value="center">center</option>
+                            <option value="space-between">space-between</option>
+                            <option value="space-around">space-around</option>
+                            <option value="space-evenly">space-evenly</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-demo" id="justifyDemo" style="display: flex;">
+                    <div class="flex-item">A</div>
+                    <div class="flex-item item2">B</div>
+                    <div class="flex-item item3">C</div>
+                </div>
+            </div>
+
+            <h3>align-items</h3>
+            <p>Controla la alineación a lo largo del eje transversal.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>align-items:</label>
+                        <select id="alignItems">
+                            <option value="stretch">stretch</option>
+                            <option value="flex-start">flex-start</option>
+                            <option value="flex-end">flex-end</option>
+                            <option value="center">center</option>
+                            <option value="baseline">baseline</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-demo" id="alignDemo" style="display: flex; height: 150px;">
+                    <div class="flex-item" style="height: auto;">X</div>
+                    <div class="flex-item item2" style="height: auto;">Y</div>
+                    <div class="flex-item item3" style="height: auto;">Z</div>
+                </div>
+            </div>
+
+            <h3>flex-wrap</h3>
+            <p>Controla si los elementos pueden pasar a la siguiente línea.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>flex-wrap:</label>
+                        <select id="flexWrap">
+                            <option value="nowrap">nowrap</option>
+                            <option value="wrap">wrap</option>
+                            <option value="wrap-reverse">wrap-reverse</option>
+                        </select>
+                    </div>
+                    <button onclick="addItem()">Agregar Elemento</button>
+                    <button onclick="removeItem()">Quitar Elemento</button>
+                </div>
+                
+                <div class="flex-demo" id="wrapDemo" style="display: flex;">
+                    <div class="flex-item">1</div>
+                    <div class="flex-item item2">2</div>
+                    <div class="flex-item item3">3</div>
+                    <div class="flex-item">4</div>
+                </div>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Importante:</strong> Cuando usas <code>flex-wrap: wrap</code>, los elementos pueden formar múltiples líneas. Usa <code>align-content</code> para controlar el espacio entre líneas.
+            </div>
+
+            <table class="property-table">
+                <thead>
+                    <tr>
+                        <th>Propiedad</th>
+                        <th>Valores</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>justify-content</code></td>
+                        <td>flex-start, flex-end, center, space-between, space-around, space-evenly</td>
+                        <td>Alineación en el eje principal</td>
+                    </tr>
+                    <tr>
+                        <td><code>align-items</code></td>
+                        <td>stretch, flex-start, flex-end, center, baseline</td>
+                        <td>Alineación en el eje transversal</td>
+                    </tr>
+                    <tr>
+                        <td><code>flex-direction</code></td>
+                        <td>row, row-reverse, column, column-reverse</td>
+                        <td>Dirección del eje principal</td>
+                    </tr>
+                    <tr>
+                        <td><code>flex-wrap</code></td>
+                        <td>nowrap, wrap, wrap-reverse</td>
+                        <td>Si los elementos pueden saltar de línea</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>📦 Propiedades de los Elementos Flex</h2>
+
+            <h3>flex-grow</h3>
+            <p>Define cuánto puede crecer un elemento relativo a otros elementos flex.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Elemento 1 - flex-grow:</label>
+                        <select id="grow1">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Elemento 2 - flex-grow:</label>
+                        <select id="grow2">
+                            <option value="0">0</option>
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>Elemento 3 - flex-grow:</label>
+                        <select id="grow3">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-demo" id="growDemo" style="display: flex;">
+                    <div class="flex-item" id="growItem1">1</div>
+                    <div class="flex-item item2" id="growItem2">2</div>
+                    <div class="flex-item item3" id="growItem3">3</div>
+                </div>
+            </div>
+
+            <h3>flex-shrink</h3>
+            <p>Define cuánto puede encogerse un elemento cuando no hay suficiente espacio.</p>
+            
+            <div class="demo-container">
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Ancho del contenedor:</label>
+                        <select id="containerWidth">
+                            <option value="100%">100% (normal)</option>
+                            <option value="300px">300px (estrecho)</option>
+                            <option value="200px">200px (muy estrecho)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>flex-shrink del elemento 2:</label>
+                        <select id="shrink2">
+                            <option value="0">0 (no se encoge)</option>
+                            <option value="1" selected>1 (normal)</option>
+                            <option value="2">2 (se encoge más)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="flex-demo" id="shrinkDemo" style="display: flex;">
+                    <div class="flex-item" style="min-width: 120px;">No se encoge</div>
+                    <div class="flex-item item2" id="shrinkItem" style="min-width: 120px;">Se puede encoger</div>
+                    <div class="flex-item item3" style="min-width: 120px;">No se encoge</div>
+                </div>
+            </div>
+
+            <h3>flex-basis</h3>
+            <p>Define el tamaño inicial del elemento antes de que se distribuya el espacio restante.</p>
+            
+            <div class="code-block">
+<span class="property">.item</span> {
+    <span class="property">flex-basis</span>: <span class="value">200px</span>; <span class="comment">/* Tamaño base de 200px */</span>
+    <span class="property">flex-basis</span>: <span class="value">auto</span>;  <span class="comment">/* Usa el tamaño del contenido */</span>
+    <span class="property">flex-basis</span>: <span class="value">0</span>;     <span class="comment">/* Sin tamaño base */</span>
+}
+            </div>
+
+            <div class="tip">
+                <strong>💡 Shorthand:</strong> Puedes usar <code>flex: grow shrink basis</code> como atajo. Por ejemplo: <code>flex: 1 0 200px</code> significa flex-grow: 1, flex-shrink: 0, flex-basis: 200px.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Casos de Uso Comunes</h2>
+
+            <h3>Centrar un Elemento</h3>
+            <div class="code-block">
+<span class="property">.centrar</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">justify-content</span>: <span class="value">center</span>; <span class="comment">/* Centrar horizontalmente */</span>
+    <span class="property">align-items</span>: <span class="value">center</span>;     <span class="comment">/* Centrar verticalmente */</span>
+    <span class="property">height</span>: <span class="value">100vh</span>;             <span class="comment">/* Altura completa */</span>
+}
+            </div>
+
+            <div class="demo-container">
+                <div class="flex-demo" style="display: flex; justify-content: center; align-items: center; height: 150px;">
+                    <div class="flex-item">¡Perfectamente Centrado! 🎯</div>
+                </div>
+            </div>
+
+            <h3>Layout de 3 Columnas</h3>
+            <div class="code-block">
+<span class="property">.columnas</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">gap</span>: <span class="value">1rem</span>; <span class="comment">/* Espacio entre columnas */</span>
+}
+
+<span class="property">.columna</span> {
+    <span class="property">flex</span>: <span class="value">1</span>; <span class="comment">/* Todas las columnas del mismo tamaño */</span>
+}
+
+<span class="property">.sidebar</span> {
+    <span class="property">flex</span>: <span class="value">0 0 250px</span>; <span class="comment">/* Sidebar fijo de 250px */</span>
+}
+            </div>
+
+            <div class="demo-container">
+                <div class="flex-demo" style="display: flex; gap: 1rem; height: 100px;">
+                    <div class="flex-item" style="flex: 0 0 80px; margin: 0;">Sidebar</div>
+                    <div class="flex-item item2" style="flex: 1; margin: 0;">Contenido Principal</div>
+                    <div class="flex-item item3" style="flex: 0 0 80px; margin: 0;">Ads</div>
+                </div>
+            </div>
+
+            <h3>Navegación Responsiva</h3>
+            <div class="code-block">
+<span class="property">.navbar</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">justify-content</span>: <span class="value">space-between</span>; <span class="comment">/* Logo a la izq, menú a la der */</span>
+    <span class="property">align-items</span>: <span class="value">center</span>;
+    <span class="property">flex-wrap</span>: <span class="value">wrap</span>; <span class="comment">/* Se adapta en móviles */</span>
+}
+
+<span class="property">.menu</span> {
+    <span class="property">display</span>: <span class="value">flex</span>;
+    <span class="property">gap</span>: <span class="value">2rem</span>;
+}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 Tips y Mejores Prácticas</h2>
+
+            <div class="tip">
+                <strong>🎯 Recuerda:</strong>
+                <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                    <li><code>justify-content</code> controla el eje principal</li>
+                    <li><code>align-items</code> controla el eje transversal</li>
+                    <li><code>flex: 1</code> es equivalente a <code>flex: 1 1 0</code></li>
+                    <li>Usa <code>gap</code> en lugar de márgenes para espaciado</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Cuidado con:</strong>
+                <ul style="margin-left: 1rem; margin-top: 0.5rem;">
+                    <li>Los márgenes pueden colapsar en Flexbox</li>
+                    <li><code>align-items: stretch</code> puede sobreescribir alturas fijas</li>
+                    <li>Flexbox es unidimensional, para layouts 2D usa CSS Grid</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Control de flex-direction
+        document.getElementById('flexDirection').addEventListener('change', function() {
+            document.getElementById('directionDemo').style.flexDirection = this.value;
+        });
+
+        // Control de justify-content
+        document.getElementById('justifyContent').addEventListener('change', function() {
+            document.getElementById('justifyDemo').style.justifyContent = this.value;
+        });
+
+        // Control de align-items
+        document.getElementById('alignItems').addEventListener('change', function() {
+            document.getElementById('alignDemo').style.alignItems = this.value;
+        });
+
+        // Control de flex-wrap
+        document.getElementById('flexWrap').addEventListener('change', function() {
+            document.getElementById('wrapDemo').style.flexWrap = this.value;
+        });
+
+        // Agregar y quitar elementos para flex-wrap
+        let itemCount = 4;
+        function addItem() {
+            itemCount++;
+            const wrapDemo = document.getElementById('wrapDemo');
+            const newItem = document.createElement('div');
+            newItem.className = 'flex-item';
+            newItem.textContent = itemCount;
+            if (itemCount % 3 === 2) newItem.className += ' item2';
+            if (itemCount % 3 === 0) newItem.className += ' item3';
+            wrapDemo.appendChild(newItem);
+        }
+
+        function removeItem() {
+            const wrapDemo = document.getElementById('wrapDemo');
+            if (wrapDemo.children.length > 1) {
+                wrapDemo.removeChild(wrapDemo.lastChild);
+                itemCount--;
+            }
+        }
+
+        // Control de flex-grow
+        document.getElementById('grow1').addEventListener('change', function() {
+            document.getElementById('growItem1').style.flexGrow = this.value;
+        });
+        document.getElementById('grow2').addEventListener('change', function() {
+            document.getElementById('growItem2').style.flexGrow = this.value;
+        });
+        document.getElementById('grow3').addEventListener('change', function() {
+            document.getElementById('growItem3').style.flexGrow = this.value;
+        });
+
+        // Inicializar flex-grow
+        document.getElementById('growItem2').style.flexGrow = '1';
+
+        // Control de flex-shrink
+        document.getElementById('containerWidth').addEventListener('change', function() {
+            document.getElementById('shrinkDemo').style.width = this.value;
+        });
+        document.getElementById('shrink2').addEventListener('change', function() {
+            document.getElementById('shrinkItem').style.flexShrink = this.value;
+        });
+
+        // Efectos de hover y animaciones
+        document.querySelectorAll('.flex-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+                this.style.zIndex = '10';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.zIndex = 'auto';
+            });
+        });
+
+        // Función para copiar código CSS
+        function copyCode(element) {
+            const code = element.textContent;
+            navigator.clipboard.writeText(code).then(function() {
+                // Mostrar feedback visual
+                const originalBg = element.style.backgroundColor;
+                element.style.backgroundColor = 'rgba(129, 199, 132, 0.3)';
+                element.style.transition = 'background-color 0.3s ease';
+                
+                setTimeout(() => {
+                    element.style.backgroundColor = originalBg;
+                }, 1000);
+            });
+        }
+
+        // Añadir botones de copiar a los bloques de código
+        document.querySelectorAll('.code-block').forEach(block => {
+            const copyBtn = document.createElement('button');
+            copyBtn.innerHTML = '📋 Copiar';
+            copyBtn.style.position = 'absolute';
+            copyBtn.style.top = '10px';
+            copyBtn.style.left = '10px';
+            copyBtn.style.fontSize = '0.8rem';
+            copyBtn.style.padding = '0.3rem 0.6rem';
+            copyBtn.style.zIndex = '20';
+            copyBtn.onclick = () => copyCode(block);
+            block.style.position = 'relative';
+            block.appendChild(copyBtn);
+        });
+
+        // Animación de entrada para las secciones
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animación de entrada a las secciones
+        document.querySelectorAll('.section').forEach((section, index) => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(section);
+        });
+
+        // Efecto de partículas en el fondo (sutil)
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.style.position = 'fixed';
+            particlesContainer.style.top = '0';
+            particlesContainer.style.left = '0';
+            particlesContainer.style.width = '100%';
+            particlesContainer.style.height = '100%';
+            particlesContainer.style.pointerEvents = 'none';
+            particlesContainer.style.zIndex = '-1';
+            document.body.appendChild(particlesContainer);
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '2px';
+                particle.style.height = '2px';
+                particle.style.backgroundColor = '#4fc3f7';
+                particle.style.borderRadius = '50%';
+                particle.style.opacity = '0.3';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Añadir animación CSS para las partículas
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% {
+                    transform: translateY(0px) translateX(0px);
+                    opacity: 0.3;
+                }
+                50% {
+                    transform: translateY(-20px) translateX(10px);
+                    opacity: 0.6;
+                }
+            }
+            
+            .code-block:hover {
+                border-color: #29b6f6;
+                box-shadow: 0 0 20px rgba(79, 195, 247, 0.3);
+                transition: all 0.3s ease;
+            }
+            
+            .demo-container:hover {
+                transform: translateY(-2px);
+                transition: transform 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Crear partículas de fondo
+        createParticles();
+
+        // Smooth scroll para navegación interna (si se añaden enlaces)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Añadir tooltip informativo a las propiedades CSS
+        function addTooltips() {
+            const tooltips = {
+                'justify-content': 'Controla la alineación de elementos en el eje principal (horizontal por defecto)',
+                'align-items': 'Controla la alineación de elementos en el eje transversal (vertical por defecto)',
+                'flex-direction': 'Define la dirección del eje principal del contenedor flex',
+                'flex-wrap': 'Permite que los elementos flex se envuelvan a nuevas líneas',
+                'flex-grow': 'Define cuánto debe crecer un elemento flex',
+                'flex-shrink': 'Define cuánto debe encogerse un elemento flex',
+                'flex-basis': 'Define el tamaño inicial del elemento antes de que se distribuya el espacio libre'
+            };
+
+            document.querySelectorAll('.property').forEach(prop => {
+                const propName = prop.textContent.replace(':', '').trim();
+                if (tooltips[propName]) {
+                    prop.title = tooltips[propName];
+                    prop.style.cursor = 'help';
+                }
+            });
+        }
+
+        // Inicializar tooltips
+        addTooltips();
+
+        console.log('🚀 Flexbox Guide cargado completamente!');
+    </script>
+</body>
+</html>

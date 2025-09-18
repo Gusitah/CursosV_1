@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Completa de HTML</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8892b0;
+            font-weight: 300;
+        }
+         .btn-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff6b6b; /* rojo claro */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  .btn-volver:hover {
+    background-color: #ff4c4c; /* rojo un poco más intenso */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+  }
+
+  .btn-volver:active {
+    background-color: #e63946; /* rojo más oscuro al hacer clic */
+    transform: translateY(0);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+        .section {
+            background: rgba(16, 22, 58, 0.4);
+            margin: 2rem 0;
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 107, 107, 0.1);
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.1);
+        }
+
+        h2 {
+            color: #ff6b6b;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-right: 15px;
+            font-size: 2rem;
+        }
+
+        h3 {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            border-left: 4px solid #4ecdc4;
+            padding-left: 15px;
+        }
+
+        h4 {
+            color: #ffe66d;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        p {
+            color: #8892b0;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .code-example {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            color: #4ecdc4;
+            position: relative;
+        }
+
+        .code-label {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #ff6b6b;
+            color: #0a192f;
+            padding: 2px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .visual-example {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid #4ecdc4;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            color: #e0e6ed;
+        }
+
+        .visual-label {
+            background: #4ecdc4;
+            color: #0a192f;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .tag-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .tag-card {
+            background: rgba(16, 22, 58, 0.6);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .tag-card:hover {
+            border-color: #ff6b6b;
+            transform: translateY(-5px);
+        }
+
+        .tag-name {
+            color: #ff6b6b;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag-purpose {
+            color: #ffe66d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .step-list {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #ff6b6b;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 5px;
+        }
+
+        .step {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .step:before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: -10px;
+            top: 0;
+            background: #ff6b6b;
+            color: #0a192f;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+        }
+
+        .warning {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .warning-title {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .tip {
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid #4ecdc4;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tip-title {
+            color: #4ecdc4;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .attribute-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .attribute-table th {
+            background: #ff6b6b;
+            color: #0a192f;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .attribute-table td {
+            border: 1px solid #333;
+            padding: 12px;
+            color: #8892b0;
+        }
+
+        .attribute-table tr:nth-child(even) {
+            background: rgba(255, 107, 107, 0.05);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: #8892b0;
+            border-top: 1px solid rgba(255, 107, 107, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .tag-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 Guía Completa de HTML</h1>
+            <p class="subtitle">Domina todas las etiquetas HTML con ejemplos prácticos</p>
+            <a href="../../index.html" class="btn-volver"> Volver</a>
+        </header>
+
+        <div class="section">
+            <h2><span class="icon">🎯</span>¿Qué es HTML?</h2>
+            <p><span class="highlight">HTML (HyperText Markup Language)</span> es el lenguaje de marcado que define la estructura y el contenido de las páginas web. Piensa en HTML como el <span class="highlight">esqueleto arquitectónico</span> de una casa: define dónde van las habitaciones, puertas, ventanas, pero no su color o decoración.</p>
+            
+            <div class="code-example">
+                <div class="code-label">Estructura básica HTML</div>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mi Primera Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;¡Hola Mundo!&lt;/h1&gt;
+    &lt;p&gt;Este es mi primer párrafo en HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <h1 style="color: #ff6b6b; font-size: 2rem;">¡Hola Mundo!</h1>
+                <p>Este es mi primer párrafo en HTML.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📝</span>Etiquetas de Estructura Básica</h2>
+            
+            <h3>🏗️ Etiquetas de Documento</h3>
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;!DOCTYPE html&gt;</div>
+                    <div class="tag-purpose">Declara que es un documento HTML5</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;!DOCTYPE html&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Debe ser la primera línea de todo documento HTML. Le dice al navegador qué versión de HTML usar.</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;html&gt;</div>
+                    <div class="tag-purpose">Elemento raíz que contiene todo</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;html lang="es"&gt;
+  &lt;!-- Todo el contenido va aquí --&gt;
+&lt;/html&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Envuelve todo el contenido de la página. El atributo <code>lang</code> especifica el idioma.</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;head&gt;</div>
+                    <div class="tag-purpose">Información sobre el documento</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi Página&lt;/title&gt;
+  &lt;meta name="description" content="Descripción"&gt;
+&lt;/head&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Contiene metadatos que no se muestran al usuario pero son importantes para el navegador y buscadores.</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;body&gt;</div>
+                    <div class="tag-purpose">Contenido visible de la página</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;body&gt;
+  &lt;h1&gt;Contenido visible&lt;/h1&gt;
+  &lt;p&gt;Todo lo que el usuario ve&lt;/p&gt;
+&lt;/body&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Contiene todo el contenido visible: texto, imágenes, videos, enlaces, etc.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📑</span>Etiquetas de Texto y Contenido</h2>
+            
+            <h3>📰 Títulos y Encabezados</h3>
+            <div class="code-example">
+                <div class="code-label">Los 6 niveles de títulos</div>
+&lt;h1&gt;Título Principal - Nivel 1&lt;/h1&gt;
+&lt;h2&gt;Subtítulo - Nivel 2&lt;/h2&gt;
+&lt;h3&gt;Sección - Nivel 3&lt;/h3&gt;
+&lt;h4&gt;Subsección - Nivel 4&lt;/h4&gt;
+&lt;h5&gt;Detalle - Nivel 5&lt;/h5&gt;
+&lt;h6&gt;Subdetalle - Nivel 6&lt;/h6&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <h1 style="font-size: 2rem; color: #ff6b6b;">Título Principal - Nivel 1</h1>
+                <h2 style="font-size: 1.7rem; color: #4ecdc4;">Subtítulo - Nivel 2</h2>
+                <h3 style="font-size: 1.4rem; color: #ffe66d;">Sección - Nivel 3</h3>
+                <h4 style="font-size: 1.2rem;">Subsección - Nivel 4</h4>
+                <h5 style="font-size: 1rem;">Detalle - Nivel 5</h5>
+                <h6 style="font-size: 0.9rem;">Subdetalle - Nivel 6</h6>
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">💡 Consejo Important:</div>
+                Usa los títulos de forma jerárquica: H1 para el título principal (solo uno por página), H2 para secciones principales, H3 para subsecciones, etc. Esto ayuda al SEO y accesibilidad.
+            </div>
+
+            <h3>📄 Párrafos y Texto</h3>
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;p&gt;</div>
+                    <div class="tag-purpose">Párrafos de texto</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;p&gt;Este es un párrafo normal.&lt;/p&gt;
+&lt;p&gt;Y este es otro párrafo.&lt;/p&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <p>Este es un párrafo normal.</p>
+                        <p>Y este es otro párrafo.</p>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;br&gt;</div>
+                    <div class="tag-purpose">Salto de línea</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;p&gt;Primera línea&lt;br&gt;
+Segunda línea&lt;br&gt;
+Tercera línea&lt;/p&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <p>Primera línea<br>Segunda línea<br>Tercera línea</p>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;hr&gt;</div>
+                    <div class="tag-purpose">Línea horizontal separadora</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;p&gt;Contenido arriba&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;Contenido abajo&lt;/p&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <p>Contenido arriba</p>
+                        <hr style="border: 1px solid #4ecdc4; margin: 10px 0;">
+                        <p>Contenido abajo</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>✨ Formato de Texto</h3>
+            <div class="code-example">
+                <div class="code-label">Etiquetas de formato</div>
+&lt;p&gt;&lt;strong&gt;Texto en negrita&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Texto en cursiva&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;u&gt;Texto subrayado&lt;/u&gt;&lt;/p&gt;
+&lt;p&gt;&lt;mark&gt;Texto resaltado&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;&lt;small&gt;Texto pequeño&lt;/small&gt;&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;Texto tachado&lt;/del&gt;&lt;/p&gt;
+&lt;p&gt;&lt;sup&gt;Superíndice&lt;/sup&gt; y &lt;sub&gt;subíndice&lt;/sub&gt;&lt;/p&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <p><strong>Texto en negrita</strong></p>
+                <p><em>Texto en cursiva</em></p>
+                <p><u>Texto subrayado</u></p>
+                <p><mark style="background: #ffe66d; color: #0a192f;">Texto resaltado</mark></p>
+                <p><small>Texto pequeño</small></p>
+                <p><del>Texto tachado</del></p>
+                <p>X<sup>2</sup> y H<sub>2</sub>O</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🗂️</span>Etiquetas de Organización</h2>
+
+            <h3>📦 Contenedores Genéricos</h3>
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;div&gt;</div>
+                    <div class="tag-purpose">Contenedor genérico de bloque</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;div class="contenedor"&gt;
+  &lt;h2&gt;Título de sección&lt;/h2&gt;
+  &lt;p&gt;Contenido de la sección&lt;/p&gt;
+&lt;/div&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Agrupa elementos para aplicar estilos CSS o JavaScript. Es como una "caja invisible" que organiza el contenido.</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;span&gt;</div>
+                    <div class="tag-purpose">Contenedor genérico en línea</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;p&gt;Este texto tiene una 
+&lt;span style="color: red;"&gt;palabra roja&lt;/span&gt; 
+en el medio.&lt;/p&gt;
+                    </div>
+                    <p><strong>Propósito:</strong> Para aplicar estilos a partes específicas de texto sin crear nueva línea.</p>
+                </div>
+            </div>
+
+            <h3>🏛️ Etiquetas Semánticas (HTML5)</h3>
+            <p>Estas etiquetas tienen el mismo comportamiento que <code>&lt;div&gt;</code> pero con <span class="highlight">significado semántico</span> que ayuda a los buscadores y lectores de pantalla:</p>
+
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;header&gt;</div>
+                    <div class="tag-purpose">Cabecera de página o sección</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;header&gt;
+  &lt;h1&gt;Mi Blog&lt;/h1&gt;
+  &lt;nav&gt;...menú...&lt;/nav&gt;
+&lt;/header&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;nav&gt;</div>
+                    <div class="tag-purpose">Menú de navegación</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;nav&gt;
+  &lt;a href="/"&gt;Inicio&lt;/a&gt;
+  &lt;a href="/blog"&gt;Blog&lt;/a&gt;
+  &lt;a href="/contacto"&gt;Contacto&lt;/a&gt;
+&lt;/nav&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;main&gt;</div>
+                    <div class="tag-purpose">Contenido principal</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;main&gt;
+  &lt;h1&gt;Artículo Principal&lt;/h1&gt;
+  &lt;p&gt;Contenido principal...&lt;/p&gt;
+&lt;/main&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;section&gt;</div>
+                    <div class="tag-purpose">Sección temática</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;section&gt;
+  &lt;h2&gt;Mis Servicios&lt;/h2&gt;
+  &lt;p&gt;Descripción de servicios...&lt;/p&gt;
+&lt;/section&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;article&gt;</div>
+                    <div class="tag-purpose">Contenido independiente</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;article&gt;
+  &lt;h2&gt;Título del Post&lt;/h2&gt;
+  &lt;p&gt;Contenido del artículo...&lt;/p&gt;
+&lt;/article&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;aside&gt;</div>
+                    <div class="tag-purpose">Contenido secundario</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;aside&gt;
+  &lt;h3&gt;Artículos Relacionados&lt;/h3&gt;
+  &lt;ul&gt;...lista...&lt;/ul&gt;
+&lt;/aside&gt;
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;footer&gt;</div>
+                    <div class="tag-purpose">Pie de página o sección</div>
+                    <div class="code-example">
+                        <div class="code-label">Uso</div>
+&lt;footer&gt;
+  &lt;p&gt;© 2024 Mi Sitio Web&lt;/p&gt;
+  &lt;p&gt;Contacto: email@ejemplo.com&lt;/p&gt;
+&lt;/footer&gt;
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Posible Estructura semántica dentro de la etiqueta body:</div>
+                <div style="border: 2px solid #ff6b6b; padding: 10px; margin: 5px;">
+                    <strong>HEADER</strong> - Logo y menú principal
+                </div>
+                <div style="border: 2px solid #4ecdc4; padding: 10px; margin: 5px;">
+                    <strong>MAIN</strong>
+                    <div style="border: 1px solid #ffe66d; padding: 8px; margin: 5px;">
+                        <strong>SECTION</strong> - Sobre nosotros
+                    </div>
+                    <div style="border: 1px solid #ffe66d; padding: 8px; margin: 5px;">
+                        <strong>ARTICLE</strong> - Post del blog
+                    </div>
+                </div>
+                <div style="border: 2px solid #ff9ff3; padding: 10px; margin: 5px;">
+                    <strong>ASIDE</strong> - Sidebar con enlaces
+                </div>
+                <div style="border: 2px solid #54a0ff; padding: 10px; margin: 5px;">
+                    <strong>FOOTER</strong> - Copyright y contacto
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📋</span>Listas</h2>
+
+            <h3>📝 Lista No Ordenada (Viñetas)</h3>
+            <div class="code-example">
+                <div class="code-label">Lista con &lt;ul&gt; y &lt;li&gt;</div>
+&lt;h3&gt;Mis comidas favoritas:&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Pizza&lt;/li&gt;
+  &lt;li&gt;Hamburguesas&lt;/li&gt;
+  &lt;li&gt;Sushi&lt;/li&gt;
+  &lt;li&gt;Tacos&lt;/li&gt;
+&lt;/ul&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <h4>Mis comidas favoritas:</h4>
+                <ul>
+                    <li>Pizza</li>
+                    <li>Hamburguesas</li>
+                    <li>Sushi</li>
+                    <li>Tacos</li>
+                </ul>
+            </div>
+
+            <h3>🔢 Lista Ordenada (Números)</h3>
+            <div class="code-example">
+                <div class="code-label">Lista con &lt;ol&gt; y &lt;li&gt;</div>
+&lt;h3&gt;Pasos para hacer café:&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Hervir agua&lt;/li&gt;
+  &lt;li&gt;Moler los granos&lt;/li&gt;
+  &lt;li&gt;Preparar el filtro&lt;/li&gt;
+  &lt;li&gt;Servir y disfrutar&lt;/li&gt;
+&lt;/ol&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <h4>Pasos para hacer café:</h4>
+                <ol>
+                    <li>Hervir agua</li>
+                    <li>Moler los granos</li>
+                    <li>Preparar el filtro</li>
+                    <li>Servir y disfrutar</li>
+                </ol>
+            </div>
+
+            <h3>📖 Lista de Definiciones</h3>
+            <div class="code-example">
+                <div class="code-label">Lista con &lt;dl&gt;, &lt;dt&gt; y &lt;dd&gt;</div>
+&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;Lenguaje de marcado para estructurar páginas web&lt;/dd&gt;
+  
+  &lt;dt&gt;CSS&lt;/dt&gt;
+  &lt;dd&gt;Lenguaje para dar estilo y diseño a las páginas web&lt;/dd&gt;
+  
+  &lt;dt&gt;JavaScript&lt;/dt&gt;
+  &lt;dd&gt;Lenguaje de programación para hacer páginas interactivas&lt;/dd&gt;
+&lt;/dl&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <dl>
+                    <dt><strong>HTML</strong></dt>
+                    <dd style="margin-left: 20px; margin-bottom: 10px;">Lenguaje de marcado para estructurar páginas web</dd>
+                    <dt><strong>CSS</strong></dt>
+                    <dd style="margin-left: 20px; margin-bottom: 10px;">Lenguaje para dar estilo y diseño a las páginas web</dd>
+                    <dt><strong>JavaScript</strong></dt>
+                    <dd style="margin-left: 20px;">Lenguaje de programación para hacer páginas interactivas</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🔗</span>Enlaces y Navegación</h2>
+
+            <h3>🌐 Etiqueta de Enlace &lt;a&gt;</h3>
+            <p>La etiqueta <code>&lt;a&gt;</code> (anchor/ancla) es una de las más importantes de HTML. Permite crear enlaces a otras páginas, secciones, emails, teléfonos, etc.</p>
+
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">Enlace a otra página</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <a href="https://www.google.com" style="color: #4ecdc4;">Ir a Google</a>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">Enlace en nueva pestaña</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;a href="https://www.youtube.com" target="_blank"&gt;
+  Abrir YouTube en nueva pestaña
+&lt;/a&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <a href="https://www.youtube.com" target="_blank" style="color: #4ecdc4;">Abrir YouTube en nueva pestaña</a>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">Enlace a email</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;a href="mailto:contacto@ejemplo.com"&gt;
+  Enviar Email
+&lt;/a&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <a href="mailto:contacto@ejemplo.com" style="color: #4ecdc4;">Enviar Email</a>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">Enlace a teléfono</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;a href="tel:+1234567890"&gt;
+  Llamar: +123-456-7890
+&lt;/a&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <a href="tel:+1234567890" style="color: #4ecdc4;">Llamar: +123-456-7890</a>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">Enlace interno (ancla)</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;a href="#seccion-contacto"&gt;Ir a Contacto&lt;/a&gt;
+
+&lt;!-- Más abajo en la página --&gt;
+&lt;section id="seccion-contacto"&gt;
+  &lt;h2&gt;Contacto&lt;/h2&gt;
+  &lt;p&gt;Aquí está la sección...&lt;/p&gt;
+&lt;/section&gt;
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ Atributos importantes de &lt;a&gt;:</div>
+                <table class="attribute-table">
+                    <tr>
+                        <th>Atributo</th>
+                        <th>Propósito</th>
+                        <th>Ejemplo</th>
+                    </tr>
+                    <tr>
+                        <td><code>href</code></td>
+                        <td>Destino del enlace</td>
+                        <td><code>href="pagina.html"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>target</code></td>
+                        <td>Dónde abrir el enlace</td>
+                        <td><code>target="_blank"</code> (nueva pestaña)</td>
+                    </tr>
+                    <tr>
+                        <td><code>title</code></td>
+                        <td>Texto que aparece al pasar el mouse</td>
+                        <td><code>title="Información adicional"</code></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🖼️</span>Imágenes y Multimedia</h2>
+
+            <h3>📷 Etiqueta de Imagen &lt;img&gt;</h3>
+            <div class="code-example">
+                <div class="code-label">Imagen básica</div>
+&lt;img src="mi-foto.jpg" alt="Descripción de la imagen"&gt;
+            </div>
+
+            <div class="code-example">
+                <div class="code-label">Imagen con más atributos</div>
+&lt;img src="logo.png" 
+     alt="Logo de mi empresa" 
+     width="300" 
+     height="200"
+     title="Logo oficial"&gt;
+            </div>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ Atributos esenciales de &lt;img&gt;:</div>
+                <ul>
+                    <li><code>src</code>: Ruta del archivo de imagen (obligatorio)</li>
+                    <li><code>alt</code>: Texto alternativo para accesibilidad (obligatorio)</li>
+                    <li><code>width/height</code>: Dimensiones en píxeles</li>
+                    <li><code>title</code>: Tooltip que aparece al pasar el mouse</li>
+                </ul>
+            </div>
+
+            <h3>🎵 Audio y Video</h3>
+            <div class="code-example">
+                <div class="code-label">Audio</div>
+&lt;audio controls&gt;
+  &lt;source src="cancion.mp3" type="audio/mpeg"&gt;
+  &lt;source src="cancion.ogg" type="audio/ogg"&gt;
+  Tu navegador no soporta audio HTML5.
+&lt;/audio&gt;
+            </div>
+
+            <div class="code-example">
+                <div class="code-label">Video</div>
+&lt;video width="320" height="240" controls&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+  &lt;source src="video.webm" type="video/webm"&gt;
+  Tu navegador no soporta video HTML5.
+&lt;/video&gt;
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📝</span>Formularios</h2>
+
+            <h3>📋 Etiqueta &lt;form&gt;</h3>
+            <p>Los formularios permiten que los usuarios envíen información. Son fundamentales para contacto, registro, búsquedas, etc.</p>
+
+            <div class="code-example">
+                <div class="code-label">Formulario de contacto completo</div>
+&lt;form action="/procesar" method="POST"&gt;
+  &lt;!-- Campo de texto --&gt;
+  &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;!-- Email --&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;!-- Contraseña --&gt;
+  &lt;label for="password"&gt;Contraseña:&lt;/label&gt;
+  &lt;input type="password" id="password" name="password" required&gt;
+
+  &lt;!-- Área de texto --&gt;
+  &lt;label for="mensaje"&gt;Mensaje:&lt;/label&gt;
+  &lt;textarea id="mensaje" name="mensaje" rows="4" cols="50"&gt;&lt;/textarea&gt;
+
+  &lt;!-- Lista desplegable --&gt;
+  &lt;label for="pais"&gt;País:&lt;/label&gt;
+  &lt;select id="pais" name="pais"&gt;
+    &lt;option value=""&gt;Selecciona un país&lt;/option&gt;
+    &lt;option value="mx"&gt;México&lt;/option&gt;
+    &lt;option value="es"&gt;España&lt;/option&gt;
+    &lt;option value="ar"&gt;Argentina&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;!-- Checkboxes --&gt;
+  &lt;input type="checkbox" id="newsletter" name="newsletter" value="si"&gt;
+  &lt;label for="newsletter"&gt;Suscribirse al newsletter&lt;/label&gt;
+
+  &lt;!-- Radio buttons --&gt;
+  &lt;p&gt;Género:&lt;/p&gt;
+  &lt;input type="radio" id="masculino" name="genero" value="masculino"&gt;
+  &lt;label for="masculino"&gt;Masculino&lt;/label&gt;
+
+  &lt;input type="radio" id="femenino" name="genero" value="femenino"&gt;
+  &lt;label for="femenino"&gt;Femenino&lt;/label&gt;
+
+  &lt;!-- Botones --&gt;
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+  &lt;button type="reset"&gt;Limpiar&lt;/button&gt;
+&lt;/form&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <form style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+                    <label for="nombre" style="display: block; margin-top: 10px;">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 8px; margin-top: 5px;">
+
+                    <label for="email" style="display: block; margin-top: 10px;">Email:</label>
+                    <input type="email" id="email" name="email" style="width: 100%; padding: 8px; margin-top: 5px;">
+
+                    <label for="mensaje" style="display: block; margin-top: 10px;">Mensaje:</label>
+                    <textarea id="mensaje" name="mensaje" rows="3" style="width: 100%; padding: 8px; margin-top: 5px;"></textarea>
+
+                    <label for="pais" style="display: block; margin-top: 10px;">País:</label>
+                    <select id="pais" name="pais" style="width: 100%; padding: 8px; margin-top: 5px;">
+                        <option value="">Selecciona un país</option>
+                        <option value="mx">México</option>
+                        <option value="es">España</option>
+                    </select>
+
+                    <div style="margin-top: 15px;">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <label for="newsletter">Suscribirse al newsletter</label>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <button type="submit" style="background: #4ecdc4; color: #0a192f; padding: 10px 20px; border: none; border-radius: 4px; margin-right: 10px;">Enviar</button>
+                        <button type="reset" style="background: #ff6b6b; color: white; padding: 10px 20px; border: none; border-radius: 4px;">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+
+            <h3>🔧 Tipos de Input más Utilizados</h3>
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">text</div>
+                    <div class="code-example">
+&lt;input type="text" placeholder="Escribe aquí"&gt;
+                    </div>
+                    <p>Campo de texto normal</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">email</div>
+                    <div class="code-example">
+&lt;input type="email" placeholder="tu@email.com"&gt;
+                    </div>
+                    <p>Valida formato de email automáticamente</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">password</div>
+                    <div class="code-example">
+&lt;input type="password" placeholder="Contraseña"&gt;
+                    </div>
+                    <p>Oculta el texto con asteriscos</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">number</div>
+                    <div class="code-example">
+&lt;input type="number" min="1" max="100"&gt;
+                    </div>
+                    <p>Solo acepta números</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">date</div>
+                    <div class="code-example">
+&lt;input type="date"&gt;
+                    </div>
+                    <p>Selector de fecha</p>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">file</div>
+                    <div class="code-example">
+&lt;input type="file" accept="image/*"&gt;
+                    </div>
+                    <p>Subir archivos</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🎯</span>Botones</h2>
+
+            <h3>🔘 Etiqueta &lt;button&gt;</h3>
+            <div class="code-example">
+                <div class="code-label">Diferentes tipos de botones</div>
+&lt;!-- Botón normal --&gt;
+&lt;button type="button"&gt;Botón Normal&lt;/button&gt;
+
+&lt;!-- Botón para enviar formulario --&gt;
+&lt;button type="submit"&gt;Enviar Formulario&lt;/button&gt;
+
+&lt;!-- Botón para limpiar formulario --&gt;
+&lt;button type="reset"&gt;Limpiar&lt;/button&gt;
+
+&lt;!-- Botón con evento JavaScript --&gt;
+&lt;button onclick="alert('¡Hola!')"&gt;Hacer Click&lt;/button&gt;
+
+&lt;!-- Botón deshabilitado --&gt;
+&lt;button disabled&gt;No disponible&lt;/button&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <button style="background: #4ecdc4; color: #0a192f; padding: 10px 15px; border: none; border-radius: 4px; margin: 5px;">Botón Normal</button>
+                <button style="background: #ff6b6b; color: white; padding: 10px 15px; border: none; border-radius: 4px; margin: 5px;">Enviar Formulario</button>
+                <button style="background: #ffe66d; color: #0a192f; padding: 10px 15px; border: none; border-radius: 4px; margin: 5px;" onclick="alert('¡Hola!')">Hacer Click</button>
+                <button style="background: #666; color: #ccc; padding: 10px 15px; border: none; border-radius: 4px; margin: 5px;" disabled>No disponible</button>
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">💡 Button vs Input:</div>
+                También puedes usar <code>&lt;input type="button"&gt;</code>, pero <code>&lt;button&gt;</code> es más flexible porque puede contener HTML (imágenes, iconos, etc.) mientras que <code>input</code> solo texto.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📊</span>Tablas</h2>
+
+            <h3>📋 Etiqueta &lt;table&gt;</h3>
+            <p>Las tablas se usan para mostrar datos estructurados en filas y columnas.</p>
+
+            <div class="code-example">
+                <div class="code-label">Tabla completa con todos los elementos</div>
+&lt;table border="1"&gt;
+  &lt;caption&gt;Ventas del Primer Trimestre 2024&lt;/caption&gt;
+  
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Mes&lt;/th&gt;
+      &lt;th&gt;Producto A&lt;/th&gt;
+      &lt;th&gt;Producto B&lt;/th&gt;
+      &lt;th&gt;Total&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Enero&lt;/td&gt;
+      &lt;td&gt;$1,200&lt;/td&gt;
+      &lt;td&gt;$800&lt;/td&gt;
+      &lt;td&gt;$2,000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Febrero&lt;/td&gt;
+      &lt;td&gt;$1,500&lt;/td&gt;
+      &lt;td&gt;$1,200&lt;/td&gt;
+      &lt;td&gt;$2,700&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Marzo&lt;/td&gt;
+      &lt;td&gt;$1,800&lt;/td&gt;
+      &lt;td&gt;$1,400&lt;/td&gt;
+      &lt;td&gt;$3,200&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+  
+  &lt;tfoot&gt;
+    &lt;tr&gt;
+      &lt;th&gt;TOTAL&lt;/th&gt;
+      &lt;th&gt;$4,500&lt;/th&gt;
+      &lt;th&gt;$3,400&lt;/th&gt;
+      &lt;th&gt;$7,900&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+            </div>
+
+            <div class="visual-example">
+                <div class="visual-label">Resultado Visual:</div>
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid #4ecdc4;">
+                    <caption style="color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">Ventas del Primer Trimestre 2024</caption>
+                    <thead>
+                        <tr style="background: rgba(78, 205, 196, 0.2);">
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">Mes</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">Producto A</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">Producto B</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">Enero</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$1,200</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$800</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$2,000</td>
+                        </tr>
+                        <tr style="background: rgba(255, 107, 107, 0.1);">
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">Febrero</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$1,500</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$1,200</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$2,700</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">Marzo</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$1,800</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$1,400</td>
+                            <td style="border: 1px solid #4ecdc4; padding: 8px;">$3,200</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr style="background: rgba(255, 230, 109, 0.2); font-weight: bold;">
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">TOTAL</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">$4,500</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">$3,400</th>
+                            <th style="border: 1px solid #4ecdc4; padding: 8px;">$7,900</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div class="warning">
+                <div class="warning-title">📝 Elementos de tabla importantes:</div>
+                <ul>
+                    <li><code>&lt;table&gt;</code>: Contenedor principal</li>
+                    <li><code>&lt;caption&gt;</code>: Título de la tabla</li>
+                    <li><code>&lt;thead&gt;</code>: Encabezado de la tabla</li>
+                    <li><code>&lt;tbody&gt;</code>: Cuerpo de la tabla</li>
+                    <li><code>&lt;tfoot&gt;</code>: Pie de la tabla</li>
+                    <li><code>&lt;tr&gt;</code>: Fila (table row)</li>
+                    <li><code>&lt;th&gt;</code>: Celda de encabezado</li>
+                    <li><code>&lt;td&gt;</code>: Celda de datos</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🎨</span>Conectar HTML con CSS</h2>
+
+            <h3>🔗 La Etiqueta &lt;link&gt;</h3>
+            <p>Para aplicar estilos CSS a tu página HTML, necesitas <span class="highlight">conectar</span> el archivo CSS con tu HTML. Esto se hace con la etiqueta <code>&lt;link&gt;</code> que <strong>siempre va dentro del &lt;head&gt;</strong>.</p>
+
+            <div class="code-example">
+                <div class="code-label">Estructura HTML con CSS externo</div>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Página con Estilos&lt;/title&gt;
+    
+    &lt;!-- AQUÍ es donde conectas el CSS --&gt;
+    &lt;link rel="stylesheet" href="estilos.css"&gt;
+    
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Mi título con estilos&lt;/h1&gt;
+    &lt;p&gt;Este párrafo tendrá los estilos del archivo CSS.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+
+            <h3>📂 Formas de Incluir CSS</h3>
+
+            <div class="step-list">
+                <div class="step">
+                    <strong>CSS Externo (Recomendado):</strong>
+                    <div class="code-example" style="margin-top: 10px;">
+&lt;link rel="stylesheet" href="estilos.css"&gt;
+                    </div>
+                    <p>El CSS está en un archivo separado. Es la mejor práctica para proyectos grandes.</p>
+                </div>
+
+                <div class="step">
+                    <strong>CSS Interno:</strong>
+                    <div class="code-example" style="margin-top: 10px;">
+&lt;head&gt;
+    &lt;style&gt;
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            color: blue;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+                    </div>
+                    <p>El CSS va dentro de la etiqueta <code>&lt;style&gt;</code> en el <code>&lt;head&gt;</code>.</p>
+                </div>
+
+                <div class="step">
+                    <strong>CSS en línea (No recomendado):</strong>
+                    <div class="code-example" style="margin-top: 10px;">
+&lt;h1 style="color: red; font-size: 24px;"&gt;Título&lt;/h1&gt;
+                    </div>
+                    <p>CSS directamente en el elemento. Solo para casos muy específicos.</p>
+                </div>
+            </div>
+
+            <h3>🔧 Atributos de la etiqueta &lt;link&gt;</h3>
+            <table class="attribute-table">
+                <tr>
+                    <th>Atributo</th>
+                    <th>Valor</th>
+                    <th>Propósito</th>
+                </tr>
+                <tr>
+                    <td><code>rel</code></td>
+                    <td><code>"stylesheet"</code></td>
+                    <td>Indica que es una hoja de estilos CSS</td>
+                </tr>
+                <tr>
+                    <td><code>href</code></td>
+                    <td>Ruta del archivo CSS</td>
+                    <td>Ubicación del archivo CSS a cargar</td>
+                </tr>
+                <tr>
+                    <td><code>type</code></td>
+                    <td><code>"text/css"</code></td>
+                    <td>Tipo de archivo (opcional en HTML5)</td>
+                </tr>
+            </table>
+
+            <h3>📁 Ejemplos de Rutas</h3>
+            <div class="code-example">
+                <div class="code-label">Diferentes formas de enlazar CSS</div>
+&lt;!-- Archivo en la misma carpeta --&gt;
+&lt;link rel="stylesheet" href="estilos.css"&gt;
+
+&lt;!-- Archivo en subcarpeta --&gt;
+&lt;link rel="stylesheet" href="css/estilos.css"&gt;
+
+&lt;!-- Archivo en carpeta padre --&gt;
+&lt;link rel="stylesheet" href="../estilos.css"&gt;
+
+&lt;!-- CSS desde CDN (Internet) --&gt;
+&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"&gt;
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">💡 Consejos para organizar CSS:</div>
+                <ul>
+                    <li>Crea una carpeta <code>css/</code> para tus archivos CSS</li>
+                    <li>Nombra tu archivo principal <code>styles.css</code> o <code>main.css</code></li>
+                    <li>Puedes enlazar múltiples archivos CSS en la misma página</li>
+                    <li>El orden importa: los estilos se aplican en el orden que aparecen</li>
+                </ul>
+            </div>
+
+            <h3>🎯 Ejemplo Práctico Completo</h3>
+            <div class="code-example">
+                <div class="code-label">archivo: index.html</div>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mi Sitio Web&lt;/title&gt;
+    
+    &lt;!-- Enlace al CSS principal --&gt;
+    &lt;link rel="stylesheet" href="css/styles.css"&gt;
+    
+    &lt;!-- Fuente de Google Fonts --&gt;
+    &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+    &lt;link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"&gt;
+    
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Bienvenido a Mi Sitio&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+            &lt;a href="#servicios"&gt;Servicios&lt;/a&gt;
+            &lt;a href="#contacto"&gt;Contacto&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;section id="inicio"&gt;
+            &lt;h2&gt;Sobre Nosotros&lt;/h2&gt;
+            &lt;p&gt;Somos una empresa dedicada a crear soluciones web increíbles.&lt;/p&gt;
+        &lt;/section&gt;
+        
+        &lt;section id="servicios"&gt;
+            &lt;h2&gt;Nuestros Servicios&lt;/h2&gt;
+            &lt;div class="servicios-grid"&gt;
+                &lt;div class="servicio"&gt;
+                    &lt;h3&gt;Diseño Web&lt;/h3&gt;
+                    &lt;p&gt;Creamos páginas web modernas y atractivas.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="servicio"&gt;
+                    &lt;h3&gt;Desarrollo&lt;/h3&gt;
+                    &lt;p&gt;Programamos funcionalidades avanzadas.&lt;/p&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+        
+        &lt;section id="contacto"&gt;
+            &lt;h2&gt;Contáctanos&lt;/h2&gt;
+            &lt;form&gt;
+                &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+                &lt;input type="text" id="nombre" name="nombre" required&gt;
+                
+                &lt;label for="email"&gt;Email:&lt;/label&gt;
+                &lt;input type="email" id="email" name="email" required&gt;
+                
+                &lt;label for="mensaje"&gt;Mensaje:&lt;/label&gt;
+                &lt;textarea id="mensaje" name="mensaje" rows="5" required&gt;&lt;/textarea&gt;
+                
+                &lt;button type="submit"&gt;Enviar Mensaje&lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2024 Mi Sitio Web. Todos los derechos reservados.&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </div>
+
+            <div class="code-example">
+                <div class="code-label">archivo: css/styles.css</div>
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 600;
+}
+
+/* Secciones */
+section {
+    padding: 3rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.servicio {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Formulario */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 4px;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🎓</span>Etiquetas Meta Importantes</h2>
+
+            <h3>🔍 Etiquetas para SEO y Metadatos</h3>
+            <p>Las etiquetas meta van en el <code>&lt;head&gt;</code> y proporcionan información importante sobre tu página:</p>
+
+            <div class="code-example">
+                <div class="code-label">Metadatos esenciales</div>
+&lt;head&gt;
+    &lt;!-- Codificación de caracteres --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    
+    &lt;!-- Responsivo en móviles --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    
+    &lt;!-- Descripción para buscadores --&gt;
+    &lt;meta name="description" content="Mi sitio web sobre desarrollo web y programación"&gt;
+    
+    &lt;!-- Palabras clave --&gt;
+    &lt;meta name="keywords" content="HTML, CSS, JavaScript, desarrollo web"&gt;
+    
+    &lt;!-- Autor --&gt;
+    &lt;meta name="author" content="Tu Nombre"&gt;
+    
+    &lt;!-- Título de la página --&gt;
+    &lt;title&gt;Mi Sitio Web - Desarrollo Web Profesional&lt;/title&gt;
+    
+    &lt;!-- Icono de la página (favicon) --&gt;
+    &lt;link rel="icon" type="image/x-icon" href="/favicon.ico"&gt;
+&lt;/head&gt;
+            </div>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ Meta tags más importantes:</div>
+                <ul>
+                    <li><code>charset="UTF-8"</code>: Permite caracteres especiales (ñ, á, ü, etc.)</li>
+                    <li><code>viewport</code>: Hace que tu página se vea bien en móviles</li>
+                    <li><code>description</code>: Lo que aparece en Google debajo del título</li>
+                    <li><code>&lt;title&gt;</code>: El título que aparece en la pestaña del navegador</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">✨</span>Etiquetas HTML5 Adicionales</h2>
+
+            <h3>🎯 Etiquetas Útiles Adicionales</h3>
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">&lt;details&gt; y &lt;summary&gt;</div>
+                    <div class="tag-purpose">Contenido desplegable</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;details&gt;
+  &lt;summary&gt;Más información&lt;/summary&gt;
+  &lt;p&gt;Este contenido se muestra al hacer click.&lt;/p&gt;
+&lt;/details&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <details>
+                            <summary style="cursor: pointer; color: #4ecdc4;">Más información</summary>
+                            <p style="margin-top: 10px;">Este contenido se muestra al hacer click.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;progress&gt;</div>
+                    <div class="tag-purpose">Barra de progreso</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;label for="progreso"&gt;Descarga:&lt;/label&gt;
+&lt;progress id="progreso" value="70" max="100"&gt;70%&lt;/progress&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <label for="progreso">Descarga:</label><br>
+                        <progress id="progreso" value="70" max="100" style="width: 200px; height: 20px;">70%</progress> 70%
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;meter&gt;</div>
+                    <div class="tag-purpose">Medidor/indicador</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;label for="bateria"&gt;Batería:&lt;/label&gt;
+&lt;meter id="bateria" value="0.8" min="0" max="1"&gt;80%&lt;/meter&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <label for="bateria">Batería:</label><br>
+                        <meter id="bateria" value="0.8" min="0" max="1" style="width: 200px;">80%</meter>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;blockquote&gt;</div>
+                    <div class="tag-purpose">Cita textual</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;blockquote cite="https://ejemplo.com"&gt;
+  "La única forma de hacer un gran trabajo es amar lo que haces."
+  &lt;footer&gt;— Steve Jobs&lt;/footer&gt;
+&lt;/blockquote&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <blockquote style="border-left: 4px solid #4ecdc4; padding-left: 20px; margin: 20px 0; font-style: italic;">
+                            "La única forma de hacer un gran trabajo es amar lo que haces."
+                            <footer style="margin-top: 10px; font-style: normal; color: #8892b0;">— Steve Jobs</footer>
+                        </blockquote>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;code&gt; y &lt;pre&gt;</div>
+                    <div class="tag-purpose">Código de programación</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;p&gt;Usa la función &lt;code&gt;console.log()&lt;/code&gt; para mostrar mensajes.&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;code&gt;
+function saludar(nombre) {
+    return "Hola " + nombre;
+}
+&lt;/code&gt;
+&lt;/pre&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <p>Usa la función <code style="background: #333; color: #4ecdc4; padding: 2px 6px; border-radius: 3px;">console.log()</code> para mostrar mensajes.</p>
+                        <pre style="background: #0a0a0a; color: #4ecdc4; padding: 15px; border-radius: 5px; overflow-x: auto; margin-top: 10px;"><code>function saludar(nombre) {
+    return "Hola " + nombre;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="tag-card">
+                    <div class="tag-name">&lt;time&gt;</div>
+                    <div class="tag-purpose">Fechas y horas</div>
+                    <div class="code-example">
+                        <div class="code-label">Código</div>
+&lt;p&gt;Publicado el &lt;time datetime="2024-01-15"&gt;15 de enero de 2024&lt;/time&gt;&lt;/p&gt;
+
+&lt;p&gt;Evento a las &lt;time datetime="2024-12-25T19:00"&gt;7:00 PM del 25 de diciembre&lt;/time&gt;&lt;/p&gt;
+                    </div>
+                    <div class="visual-example">
+                        <div class="visual-label">Se ve así:</div>
+                        <p>Publicado el <time datetime="2024-01-15" style="color: #ffe66d;">15 de enero de 2024</time></p>
+                        <p>Evento a las <time datetime="2024-12-25T19:00" style="color: #ffe66d;">7:00 PM del 25 de diciembre</time></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">📚</span>Resumen de Etiquetas Esenciales</h2>
+
+            <h3>🎯 Las 20 Etiquetas Más Importantes</h3>
+            <p>Si dominas estas etiquetas, podrás crear cualquier página web:</p>
+
+            <div class="tag-grid">
+                <div class="tag-card">
+                    <div class="tag-name">Estructura</div>
+                    <p><code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Títulos</div>
+                    <p><code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Texto</div>
+                    <p><code>&lt;p&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Contenedores</div>
+                    <p><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Semántica</div>
+                    <p><code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;section&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Enlaces</div>
+                    <p><code>&lt;a&gt;</code> con <code>href</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Listas</div>
+                    <p><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Imágenes</div>
+                    <p><code>&lt;img&gt;</code> con <code>src</code> y <code>alt</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">Formularios</div>
+                    <p><code>&lt;form&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;button&gt;</code></p>
+                </div>
+                <div class="tag-card">
+                    <div class="tag-name">CSS</div>
+                    <p><code>&lt;link rel="stylesheet"&gt;</code></p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">🚀 Próximos pasos recomendados:</div>
+                <ol>
+                    <li><strong>Practica creando páginas simples</strong> con estas etiquetas</li>
+                    <li><strong>Aprende CSS</strong> para dar estilo a tus páginas HTML</li>
+                    <li><strong>Experimenta con formularios</strong> y diferentes tipos de input</li>
+                    <li><strong>Estudia accesibilidad web</strong> (atributos como <code>alt</code>, <code>aria-label</code>)</li>
+                    <li><strong>Aprende JavaScript</strong> para hacer tus páginas interactivas</li>
+                </ol>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <h3 style="color: #ff6b6b; margin-bottom: 1rem;">Gracias por llegar hasta aqui</h3>
+            <p>Ahora conoces todas las etiquetas HTML esenciales para crear páginas web.</p>
+            <p>HTML es el <strong>fundamento</strong> de todo desarrollo web. Con estas etiquetas puedes crear desde blogs simples hasta aplicaciones web... no tan simples</p>
+            <p style="margin-top: 1rem; color: #4ecdc4;"><strong>Recuerda practicar e implementar lo entendido para que quede aprendido</strong></p>
+        </footer>
+    </div>
+
+    <script>
+        // Pequeña funcionalidad para hacer los ejemplos más interactivos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Agregar efectos hover a las tarjetas
+            const cards = document.querySelectorAll('.tag-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guía de Ciudadanía Digital</title>
+<meta name="description" content="Ciudadanía Digital: seguridad, privacidad, ética, alfabetización, identidad, contraseñas, redes sociales, compras seguras, derechos y protección de menores." />
+<style>
+  /* ====== Paleta y base (oscura y azulada) ====== */
+  :root{
+    --bg: #0b1220;
+    --bg-2:#0e1629;
+    --surface:#111b33;
+    --surface-2:#0f1a2b;
+    --text:#e6efff;
+    --muted:#98b1d6;
+    --accent:#37a1ff;
+    --accent-2:#00e5ff;
+    --ok:#2fd275;
+    --warn:#ffb020;
+    --danger:#ff5577;
+    --shadow: 0 0 0 transparent;
+    --radius: 16px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Inter,Arial,sans-serif}
+  a{color:var(--accent)}
+  img{max-width:100%;height:auto;display:block}
+
+  /* ====== Layout ====== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:linear-gradient(180deg, #0b1220 0%, #0e1629 100%);
+    border-bottom:1px solid #1d2a44;
+    padding:18px 20px;
+    backdrop-filter: blur(6px);
+  }
+  .header-inner{max-width:1150px;margin:0 auto;display:flex;align-items:center;gap:14px}
+  .logo{
+    display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px
+  }
+  .logo-badge{
+    width:34px;height:34px;border-radius:10px;
+    background: radial-gradient(120px 60px at 30% 20%, #37a1ff55, #00e5ff22, transparent 70%),
+                linear-gradient(135deg,#1a2a45,#0f1a2b);
+    box-shadow:
+      0 0 10px #37a1ff55,
+      inset 0 0 12px #00e5ff22;
+  }
+  nav{
+    margin-left:auto;display:flex;gap:10px;flex-wrap:wrap
+  }
+  .nav-btn{
+    padding:8px 12px;border-radius:10px;border:1px solid #1f2e4c;background:#0e1629;color:var(--text);
+    text-decoration:none;font-size:.92rem;transition:.25s ease;
+  }
+  .nav-btn:hover{box-shadow:0 0 12px #2c80ff55; border-color:#2c80ff; transform:translateY(-1px)}
+  .primary{background:linear-gradient(135deg,#1a2a45,#0f1a2b);border-color:#2c80ff;color:#dff2ff}
+  .primary:hover{box-shadow:0 0 16px #37a1ff77, 0 0 32px #00e5ff33}
+
+  .container{max-width:1150px;margin:0 auto;padding:28px 20px}
+
+  /* ====== Hero ====== */
+  .hero{
+    margin-top:18px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;
+  }
+  .hero > div{
+    background: radial-gradient(200px 140px at 12% 10%, #37a1ff19, transparent 60%),
+                linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+    border:1px solid #1e2d4b;border-radius:var(--radius);padding:24px 22px;
+    box-shadow: inset 0 0 0 1px #14213b, 0 0 0 0 transparent;
+  }
+  .title{font-size:clamp(1.8rem, 2.6vw + .5rem, 3rem);line-height:1.1;margin:0 0 10px}
+  .subtitle{color:var(--muted);margin:0 0 14px;font-size:1.05rem}
+  .kp-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .kp{
+    border:1px solid #22365d;background:#0f1a2b;border-radius:14px;padding:14px;
+    text-align:center;transition:.25s; 
+  }
+  .kp strong{display:block;font-size:1.3rem}
+  .kp small{color:var(--muted)}
+  .kp:hover{box-shadow:0 0 18px #2c80ff55; transform: translateY(-2px)}
+
+  .hero-art{
+    min-height:220px;
+    background:
+      radial-gradient(280px 160px at 75% 20%, #00e5ff14, transparent 70%),
+      radial-gradient(220px 160px at 20% 70%, #37a1ff1a, transparent 70%),
+      linear-gradient(145deg,#0f1a2b,#0b1220 60%);
+    border:1px solid #1e2d4b;border-radius:var(--radius);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .hero-chip{
+    padding:10px 12px;border-radius:12px;border:1px solid #2c80ff;
+    background:#0e1629;color:#dff2ff;box-shadow:0 0 14px #2c80ff55;
+  }
+
+  /* ====== Secciones y tarjetas ====== */
+  section{margin:36px 0}
+  h2{font-size:1.6rem;margin:0 0 14px}
+  .muted{color:var(--muted)}
+
+  .grid{
+    display:grid; gap:16px;
+    grid-template-columns:repeat(12, 1fr);
+  }
+  .col-12{grid-column:span 12}
+  .col-6{grid-column:span 6}
+  .col-4{grid-column:span 4}
+  .col-3{grid-column:span 3}
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr}
+    .kp-list{grid-template-columns:1fr 1fr}
+    .col-6,.col-4,.col-3{grid-column:span 12}
+  }
+
+  .card{
+    background:linear-gradient(180deg,#0f1a2b,#0c1426);
+    border:1px solid #1f2e4c;border-radius:14px;padding:16px;
+    transition:.25s;
+  }
+  .card:hover{box-shadow:0 0 18px #2c80ff66, inset 0 0 0 1px #2c80ff33; transform: translateY(-2px)}
+  .card h3{margin:0 0 8px}
+  .badge{
+    display:inline-block;font-size:.75rem;padding:4px 8px;border-radius:999px;border:1px solid #28406a;background:#10203b;color:#cde6ff;margin-bottom:8px
+  }
+  .ok{border-color:#1f6744;background:#0f2a20;color:#a6f0c8}
+  .warn{border-color:#5a4a1a;background:#241f0c;color:#ffe2a6}
+  .danger{border-color:#5a2030;background:#241018;color:#ffc2cf}
+
+  /* ===== Listas lindas ===== */
+  ul.clean{padding-left:1.15rem;margin:0}
+  ul.clean li{margin:6px 0}
+  .checklist li::marker{content:"✅ "}
+  .dot li::marker{content:"•  "}
+  .warnlist li::marker{content:"⚠️ "}
+
+  /* ===== Tablas pequeñas / bloques ===== */
+  .table-like{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;
+  }
+  .pill{
+    background:#0e1629;border:1px solid #203358;border-radius:10px;padding:10px 12px
+  }
+
+  /* ===== Citas ===== */
+  blockquote{
+    margin:12px 0;padding:12px 14px;border-left:4px solid #2c80ff;background:#0e1629;border-radius:10px
+  }
+  cite{display:block;color:#8fb3e6;margin-top:6px;font-style:normal;font-size:.9rem}
+
+  /* ===== Sección final ===== */
+  .cta{
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+    background: radial-gradient(260px 160px at 15% 30%, #37a1ff22, transparent 65%), #0f1a2b;
+    border:1px solid #214070;border-radius:16px;padding:18px;
+  }
+  .btn{
+    border:1px solid #2c80ff;background:#0e1629;color:#eaf6ff;padding:10px 14px;border-radius:12px;
+    text-decoration:none; display:inline-block; transition:.25s
+  }
+  .btn:hover{box-shadow:0 0 18px #2c80ff77}
+  .btn.primary{background:linear-gradient(135deg,#1a2a45,#0f1a2b);}
+
+  /* ===== Código ===== */
+  code, pre{
+    background:#0e1629; border:1px solid #203358; border-radius:10px; color:#dff2ff
+  }
+  code{padding:2px 6px}
+  pre{padding:12px; overflow:auto}
+
+  /* ===== Enlaces internos suaves ===== */
+  html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-badge"></div>
+      <span>Ciudadanía Digital</span>
+    </div>
+    <nav>
+      <a class="nav-btn" href="#que-es">¿Qué es?</a>
+      <a class="nav-btn" href="#pilares">Pilares</a>
+      <a class="nav-btn" href="#identidad">Identidad</a>
+      <a class="nav-btn" href="#seguridad">Seguridad</a>
+      <a class="nav-btn" href="#phishing">Phishing</a>
+      <a class="nav-btn" href="#credenciales">Contraseñas</a>
+      <a class="nav-btn" href="#redes">Redes Sociales</a>
+      <a class="nav-btn" href="#compras">Compras</a>
+      <a class="nav-btn" href="#derechos">Derechos</a>
+      <a class="nav-btn primary" href="../../index.html">🔙volver</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero" id="que-es">
+    <div>
+      <h1 class="title">¿Qué es la Ciudadanía Digital?</h1>
+      <p class="subtitle">
+        Uso responsable, ético y seguro de la tecnología. En el mundo digital también tenemos derechos y responsabilidades.
+      </p>
+
+      <div class="kp-list">
+        <div class="kp">
+          <strong>5.16B</strong>
+          <small>Usuarios de internet</small>
+        </div>
+        <div class="kp">
+          <strong>4.76B</strong>
+          <small>Usuarios de redes sociales</small>
+        </div>
+        <div class="kp">
+          <strong>95%</strong>
+          <small>Ataques por error humano</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <div class="hero-chip">🛡️ Ética • Privacidad • Seguridad</div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <section id="pilares">
+    <h2>Pilares de la Ciudadanía Digital</h2>
+    <div class="grid">
+      <div class="col-6 card">
+        <span class="badge">🛡️ Seguridad Digital</span>
+        <p>Proteger información y dispositivos frente a amenazas cibernéticas.</p>
+      </div>
+      <div class="col-6 card">
+        <span class="badge">🎭 Privacidad</span>
+        <p>Controlar qué información compartimos y con quién.</p>
+      </div>
+      <div class="col-6 card">
+        <span class="badge">⚖️ Ética Digital</span>
+        <p>Actuar con respeto y responsabilidad en línea.</p>
+      </div>
+      <div class="col-6 card">
+        <span class="badge">📚 Alfabetización Digital</span>
+        <p>Desarrollar habilidades para usar tecnología eficazmente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDENTIDAD DIGITAL -->
+  <section id="identidad">
+    <h2>🆔 Identidad Digital</h2>
+    <p class="muted">
+      Tu identidad digital es quién eres en línea: lo que compartís, publicás o lo que otros publican sobre vos.
+    </p>
+
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>¿Qué incluye?</h3>
+        <ul class="clean dot">
+          <li>Perfiles en redes sociales</li>
+          <li>Comentarios y publicaciones</li>
+          <li>Fotos y videos</li>
+          <li>Historial de búsquedas</li>
+          <li>Compras en línea y correos</li>
+          <li>Registros en sitios web</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Gestión de la Reputación Digital</h3>
+        <p>Impacta en trabajo, relaciones e imagen pública.</p>
+        <ul class="clean dot">
+          <li>Piensa antes de publicar</li>
+          <li>Configura tu privacidad</li>
+          <li>Sé profesional</li>
+          <li>Monitorea tu nombre en Google</li>
+          <li>Crea contenido positivo</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>✅ Lista de verificación</h3>
+        <ul class="clean checklist">
+          <li>Revisé mis configuraciones de privacidad</li>
+          <li>Eliminé contenido inapropiado</li>
+          <li>Uso fotos de perfil profesionales</li>
+          <li>Busqué mi nombre en Google</li>
+          <li>Cuido lo que publico</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGURIDAD EN INTERNET -->
+  <section id="seguridad">
+    <h2>🔐 Seguridad en Internet</h2>
+    <p class="muted">Protegé tu información personal y financiera y preservá tu privacidad.</p>
+
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>⚠️ Principales amenazas</h3>
+        <ul class="clean warnlist">
+          <li>Malware (virus, troyanos, ransomware)</li>
+          <li>Phishing (correos/sitios falsos)</li>
+          <li>Ingeniería social</li>
+          <li>Robo de identidad</li>
+          <li>Ataques de fuerza bruta</li>
+          <li>Wi-Fi público inseguro</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>🛡️ Protección esencial</h3>
+        <ul class="clean dot">
+          <li>🔄 Mantener software actualizado</li>
+          <li>🛡️ Usar antivirus</li>
+          <li>🔥 Configurar firewall</li>
+          <li>💾 Hacer copias de seguridad</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>🌐 Navegación segura</h3>
+        <div class="table-like">
+          <div class="pill">🔒 HTTPS y candado</div>
+          <div class="pill">📜 Certificado válido</div>
+          <div class="pill">🧭 Reputación del sitio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHISHING -->
+  <section id="phishing">
+    <h2>🎣 Phishing: Reconocerlo y Evitarlo</h2>
+    <p class="muted">Técnica de ingeniería social para robar datos haciéndose pasar por entidades confiables.</p>
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Tipos</h3>
+        <ul class="clean dot">
+          <li>📧 Email phishing</li>
+          <li>🎯 Spear phishing</li>
+          <li>🐋 Whaling (ejecutivos)</li>
+          <li>💬 Smishing (SMS)</li>
+        </ul>
+      </div>
+      <div class="col-6 card">
+        <h3>Señales de alerta</h3>
+        <ul class="clean warnlist">
+          <li>Urgencia extrema</li>
+          <li>Errores ortográficos</li>
+          <li>Remitente dudoso</li>
+          <li>Enlaces sospechosos</li>
+          <li>Solicitud de datos sensibles</li>
+          <li>Adjuntos inesperados</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>Ejemplo de correo phishing</h3>
+        <pre>De: seguridad@bancoxyz.com-support.info
+Asunto: ¡URGENTE! Su cuenta será suspendida
+
+Estimado cliente,
+Hemos detectado actividad sospechosa. Haga clic AQUÍ para verificar sus datos.
+
+(⚠️ Urgencia falsa, errores, dominio sospechoso)</pre>
+      </div>
+
+      <div class="col-12 card">
+        <h3>Cómo protegerte</h3>
+        <ul class="clean checklist">
+          <li>Verifica por canales oficiales</li>
+          <li>Inspecciona URLs antes de hacer clic</li>
+          <li>Activa autenticación de dos factores (2FA)</li>
+          <li>Mantén software actualizado</li>
+          <li>Edúcate continuamente</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CREDENCIALES Y CONTRASEÑAS -->
+  <section id="credenciales">
+    <h2>🔑 Gestión de Credenciales y Contraseñas</h2>
+    <p class="muted">El 81% de las violaciones involucran contraseñas débiles o robadas.</p>
+
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Fuerte vs. débil</h3>
+        <div class="pill danger" style="margin-bottom:8px">Débil: 123456, password, qwerty</div>
+        <div class="pill warn" style="margin-bottom:8px">Media: Password123, MiNombre2023</div>
+        <div class="pill ok">Fuerte: M1C@s@Es3lM3j0r2023!</div>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Reglas de una contraseña segura</h3>
+        <ul class="clean checklist">
+          <li>12+ caracteres (ideal 16)</li>
+          <li>Mayúsculas y minúsculas</li>
+          <li>Números y símbolos</li>
+          <li>Única por cuenta</li>
+          <li>Sin datos personales ni palabras comunes</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Gestores de contraseñas</h3>
+        <ul class="clean dot">
+          <li>Ventajas: genera, guarda y autocompleta</li>
+          <li>Opciones: LastPass, 1Password, Bitwarden, KeePass</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Autenticación de dos factores (2FA)</h3>
+        <ul class="clean dot">
+          <li>Algo que sabes (contraseña)</li>
+          <li>Algo que tienes (móvil/llave)</li>
+          <li>Algo que eres (biometría)</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>📋 Checklist de credenciales</h3>
+        <ul class="clean checklist">
+          <li>Contraseñas únicas por servicio</li>
+          <li>2FA activado en cuentas críticas</li>
+          <li>Uso gestor de contraseñas</li>
+          <li>Actualizo si hay brechas</li>
+          <li>No comparto credenciales</li>
+          <li>Cambio las predeterminadas</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES SOCIALES -->
+  <section id="redes">
+    <h2>📱 Seguridad en Redes Sociales</h2>
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Configuración de privacidad</h3>
+        <ul class="clean dot">
+          <li>👥 Facebook: perfil privado, limitar búsquedas, controlar etiquetas</li>
+          <li>📷 Instagram: cuenta privada, ocultar historias, desactivar ubicación</li>
+          <li>🐦 Twitter/X: tweets protegidos, filtrar notificaciones, sin geolocalización</li>
+          <li>💼 LinkedIn: controlar visibilidad, limitar conexiones, datos públicos</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Riesgos comunes</h3>
+        <ul class="clean warnlist">
+          <li>Oversharing</li>
+          <li>Cyberbullying</li>
+          <li>Suplantación de identidad</li>
+          <li>Estafas románticas</li>
+          <li>Clickbait malicioso</li>
+          <li>Fake news</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Publicar responsablemente</h3>
+        <ul class="clean dot">
+          <li>¿Me representará bien?</li>
+          <li>¿Revelo datos sensibles?</li>
+          <li>¿Puede malinterpretarse?</li>
+          <li>¿Verifiqué la información?</li>
+          <li>¿Respeta la privacidad de otros?</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>🔍 Detectar perfiles falsos</h3>
+        <ul class="clean warnlist">
+          <li>Pocas o “perfectas” fotos</li>
+          <li>Perfil nuevo, pocas conexiones</li>
+          <li>Datos inconsistentes</li>
+          <li>Pedidos de dinero o información</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPRAS SEGURAS -->
+  <section id="compras">
+    <h2>🛒 Compras Seguras en Internet</h2>
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Verificación del sitio</h3>
+        <ul class="clean checklist">
+          <li>HTTPS y candado visibles</li>
+          <li>Contacto claro y políticas de devolución</li>
+          <li>Reseñas genuinas y variadas</li>
+          <li>Precios realistas</li>
+          <li>Diseño profesional</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Métodos de pago</h3>
+        <ul class="clean dot">
+          <li>💳 Más seguros: crédito, PayPal, Apple/Google Pay, tarjetas virtuales</li>
+          <li>⚠️ Evitar: transferencias, giros, cripto a desconocidos, débito en sitios dudosos</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>🚩 Señales de fraude</h3>
+        <ul class="clean warnlist">
+          <li>Precios irrealmente bajos</li>
+          <li>Presión temporal</li>
+          <li>Falta de información</li>
+          <li>Reseñas falsas/idénticas</li>
+          <li>Mala gramática</li>
+          <li>Datos innecesarios solicitados</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Protección de datos financieros</h3>
+        <ul class="clean checklist">
+          <li>Tarjeta específica para online</li>
+          <li>Monitorear movimientos y alertas</li>
+          <li>No guardar pago en sitios dudosos</li>
+          <li>Evitar Wi-Fi público</li>
+          <li>Guardar comprobantes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DERECHOS Y PRIVACIDAD -->
+  <section id="derechos">
+    <h2>⚖️ Derechos Digitales y Privacidad</h2>
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Regulaciones principales</h3>
+        <ul class="clean dot">
+          <li>🇪🇺 GDPR (Europa)</li>
+          <li>🇺🇸 CCPA (California)</li>
+          <li>🇧🇷 LGPD (Brasil)</li>
+          <li>🌍 Leyes locales</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Tus derechos</h3>
+        <ul class="clean checklist">
+          <li>Información y acceso a tus datos</li>
+          <li>Rectificación y eliminación</li>
+          <li>Portabilidad y oposición</li>
+          <li>No discriminación</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>Cómo ejercerlos</h3>
+        <ul class="clean dot">
+          <li>Identificar al responsable</li>
+          <li>Leer política de privacidad</li>
+          <li>Enviar solicitud clara con identificación</li>
+          <li>Dar seguimiento y escalar a la autoridad si procede</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>Control de tu privacidad</h3>
+        <ul class="clean checklist">
+          <li>Revisar políticas antes de registrarte</li>
+          <li>Ajustar configuraciones periódicamente</li>
+          <li>Limitar datos compartidos</li>
+          <li>Usar herramientas (VPN, navegadores privados)</li>
+          <li>Eliminar cuentas en desuso</li>
+          <li>Monitorear tu huella digital</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROTECCIÓN DE MENORES -->
+  <section id="menores">
+    <h2>👶 Protección de Menores en Internet</h2>
+    <p class="muted">95% de adolescentes tiene acceso a internet, pero solo 58% recibe educación de seguridad.</p>
+
+    <div class="grid">
+      <div class="col-6 card">
+        <h3>Riesgos específicos</h3>
+        <ul class="clean warnlist">
+          <li>Cyberbullying y grooming</li>
+          <li>Contenido inapropiado</li>
+          <li>Adicción digital</li>
+          <li>Estafas dirigidas</li>
+          <li>Violación de privacidad</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Educación por edades</h3>
+        <ul class="clean dot">
+          <li>👧 6–9: uso supervisado, no compartir datos</li>
+          <li>🧒 10–12: identificar contenido inapropiado</li>
+          <li>👦 13–15: contraseñas y privacidad</li>
+          <li>🧑 16–18: reputación, citas online, derechos</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Herramientas de control parental</h3>
+        <ul class="clean dot">
+          <li>Filtros de contenido y tiempo</li>
+          <li>Monitoreo y restricciones de apps</li>
+          <li>Ubicación GPS y reportes</li>
+        </ul>
+      </div>
+
+      <div class="col-6 card">
+        <h3>Señales de alerta</h3>
+        <ul class="clean warnlist">
+          <li>Cambios de comportamiento</li>
+          <li>Secretismo sobre actividad online</li>
+          <li>Regalos de desconocidos</li>
+          <li>Contenido perturbador</li>
+          <li>Aislamiento social</li>
+        </ul>
+      </div>
+
+      <div class="col-12 card">
+        <h3>Comunicación abierta</h3>
+        <ul class="clean checklist">
+          <li>Conversaciones regulares</li>
+          <li>Ser accesibles y sin juicios</li>
+          <li>Educar con ejemplos reales</li>
+          <li>Reglas claras de uso</li>
+          <li>Modelar buen comportamiento</li>
+          <li>Mantenerse actualizados</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCLUSIÓN Y PLAN -->
+  <section id="final">
+    <h2>🎯 Conclusión: Sé un Ciudadano Digital Responsable</h2>
+    <blockquote>
+      “La educación es la mejor defensa contra los riesgos digitales. Mantente curioso, mantente seguro.”
+      <cite>© 2024 Guía de Ciudadanía Digital</cite>
+    </blockquote>
+
+    <div class="cta">
+      <div>
+        <h3 style="margin:0 0 6px">🌟 Recuerda</h3>
+        <p class="muted" style="margin:0">
+          La seguridad es un proceso continuo, no un destino.
+        </p>
+      </div>
+      <a href="#plan" class="btn primary">Ver Plan de Acción</a>
+    </div>
+
+    <section id="plan" style="margin-top:18px">
+      <h3>📋 Mi compromiso</h3>
+      <ul class="clean checklist">
+        <li>Actualizar configuraciones de privacidad</li>
+        <li>Contraseñas únicas y seguras</li>
+        <li>Activar 2FA en cuentas importantes</li>
+        <li>Pensar antes de publicar</li>
+        <li>Verificar información antes de compartir</li>
+        <li>Respetar la privacidad de otros</li>
+        <li>Informarme sobre nuevas amenazas</li>
+        <li>Enseñar a otros y reportar abusos</li>
+        <li>Ejercer mis derechos digitales</li>
+      </ul>
+
+      <h3 style="margin-top:18px">🏆 Beneficios</h3>
+      <ul class="clean dot">
+        <li>Mayor seguridad personal</li>
+        <li>Mejor reputación</li>
+        <li>Relaciones más saludables</li>
+        <li>Mayor confianza al navegar</li>
+        <li>Contribución positiva al ecosistema digital</li>
+      </ul>
+
+      <h3 style="margin-top:18px">📚 Recursos</h3>
+      <ul class="clean dot">
+        <li>Organizaciones: INCIBE, EFF, ISACA</li>
+        <li>Cursos: Coursera, edX, Cybrary</li>
+        <li>Noticias: KrebsOnSecurity, SANS</li>
+        <li>Herramientas: Have I Been Pwned, Privacy Badger</li>
+        <li>Comunidades: foros de seguridad</li>
+      </ul>
+    </section>
+  </section>
+
+</main>
+
+<footer class="container" style="border-top:1px solid #1d2a44; padding-top:18px">
+  <small class="muted">© 2024–2025 Guía de Ciudadanía Digital • Educación para un Internet más seguro</small>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explicación: Página Web, HTML y CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: #1c1c1c;
+            color: #e0e0e0;
+        }
+
+        header {
+            background: #222;
+            color: #e0e0e0;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.3rem;
+            text-align: center;
+        }
+
+        header p {
+            text-align: center;
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #2a2a2a;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.6);
+        }
+
+        section h2 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        pre {
+            background: #333;
+            color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: #111;
+            color: #777;
+        }
+
+        /* Botón volver arriba a la derecha */
+        .volver {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            padding: 8px 15px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .volver:hover {
+            background: #45a049;
+        }
+
+        /* Contenedor para código + imagen */
+        .contenido-flex {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .contenido-flex pre {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .contenido-flex img {
+            flex: 1;
+            max-width: 300px;
+            border-radius: 8px;
+        }
+
+        .imagen-css {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .imagen-css img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        img:hover{
+             box-shadow: 
+        0 0 10px #ff00ff96,
+        0 0 20px #00ff2a,
+        0 0 40px #ffffff;
+        }
+        a{
+            color:#f1f1f1;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button class="volver"><a href="../../index.html">⬅ Volver</a></button>
+        <h1>Introducción a Página Web, HTML y CSS</h1>
+        <p>Explicación básica para comprender cómo funcionan</p>
+    </header>
+
+    <main>
+        <section id="pagina-web">
+            <h2>¿Qué es una página web?</h2>
+            <p>
+                Una <strong>página web</strong> es un documento accesible en Internet que se muestra en un navegador (como Chrome, Firefox o Edge).
+                Puede contener texto, imágenes, videos, enlaces, formularios y muchos otros elementos interactivos.
+            </p>
+            <p>
+                Las páginas web se construyen principalmente utilizando tres tecnologías:
+            </p>
+            <ul>
+                <li><strong>HTML</strong>: HTML (Lenguaje de Marcas de Hipertexto, del inglés HyperText Markup Language) es el componente más básico de la Web. Define el significado y la estructura del contenido web. </li>
+                <li><strong>CSS</strong>: CSS es un lenguaje informático especializado en definir y cohesionar la presentación de un documento escrito en un lenguaje de marcado como HTML.</li>
+                <li><strong>JavaScript</strong>: es un lenguaje de programación e scripting que se usa principalmente para hacer las páginas web interactivas y dinámicas, permitiendo desde animaciones y actualización de contenido en tiempo real hasta validación de formularios y manejo de multimedia. Es un lenguaje interpretado que se ejecuta directamente en el navegador del usuario, siendo el tercer lenguaje fundamental de la web, después de HTML (estructura) y CSS (estilo). </li>
+            </ul>
+        </section>
+
+        <section id="html">
+            <h2>¿Qué es HTML?</h2>
+            <p>
+                <strong>HTML (HyperText Markup Language)</strong> es el lenguaje de marcado que define la estructura de una página web. Un elemento HTML se distingue de otro texto en un documento mediante "etiquetas", que consisten en el nombre del elemento rodeado por "<" y ">". El nombre de un elemento dentro de una etiqueta no distingue entre mayúsculas y minúsculas.
+            </p>
+
+            <h3>Estructura básica de un documento HTML</h3>
+            <div class="contenido-flex">
+                <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Título de la página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Encabezado principal&lt;/h1&gt;
+    &lt;p&gt;Este es un párrafo de ejemplo.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </pre>
+                <!-- Aquí puedes poner tu imagen -->
+                <img src="imagenes/estructurahtml.jpg" >
+            </div>
+
+            <h3>Etiquetas HTML comunes</h3>
+            <ul>
+                <li><code>&lt;h1&gt;...&lt;/h1&gt;</code> hasta <code>&lt;h6&gt;</code>: encabezados.</li>
+                <li><code>&lt;p&gt;</code>: párrafo de texto.</li>
+                <li><code>&lt;a href="..."&gt;</code>: enlace.</li>
+                <li><code>&lt;img src="..." alt="..."&gt;</code>: imagen.</li>
+                <li><code>&lt;ul&gt; &lt;li&gt;</code>: lista desordenada.</li>
+                <li><code>&lt;ol&gt; &lt;li&gt;</code>: lista ordenada.</li>
+                <li><code>&lt;table&gt;</code>: tablas de datos.</li>
+                <li><code>&lt;form&gt;</code>: formularios.</li>
+            </ul>
+
+            <h3>Ejemplo de HTML práctico</h3>
+            <pre>
+&lt;h1&gt;Mi primera página&lt;/h1&gt;
+&lt;p&gt;Hola, este es un párrafo de texto.&lt;/p&gt;
+&lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
+&lt;img src="imagen.jpg" alt="Descripción de la imagen"&gt;
+            </pre>
+        </section>
+
+        <section id="css">
+            <h2>¿Qué es CSS?</h2>
+            <p>
+                <strong>CSS (Cascading Style Sheets)</strong> es el lenguaje que se usa para dar estilo y diseño a los elementos de una página web.
+                Con CSS podemos controlar colores, tamaños, fuentes, márgenes, posiciones, efectos visuales y adaptaciones a distintos dispositivos (responsive design).
+            </p>
+
+            <h3>Maneras de aplicar CSS</h3>
+            <ul>
+                <li><strong>En línea:</strong> dentro del mismo elemento HTML.</li>
+                <li><strong>Interno:</strong> dentro de la etiqueta <code>&lt;style&gt;</code> en el <code>&lt;head&gt;</code>.</li>
+                <li><strong>Externo:</strong> mediante un archivo <code>.css</code> enlazado al HTML.</li>
+            </ul>
+
+            <h3>Sintaxis básica de CSS</h3>
+            <pre>
+selector {
+    propiedad: valor;
+}
+            </pre>
+
+            <!-- Imagen para CSS -->
+            <div class="imagen-css">
+                <img src="imagenes/estructuracss.png" width="600px"  alt="Ejemplo sintaxis CSS">
+            </div>
+
+            <h3>Ejemplo de CSS</h3>
+            <pre>
+h1 {
+    color: blue;
+    font-size: 30px;
+}
+
+p {
+    color: #333;
+    line-height: 1.5;
+}
+
+img {
+    width: 200px;
+    border-radius: 10px;
+}
+            </pre>
+
+            <h3>Selectores comunes</h3>
+            <ul>
+                <li><code>elemento</code> → selecciona etiquetas (<code>p</code>, <code>h1</code>, <code>img</code>).</li>
+                <li><code>.clase</code> → selecciona elementos con una clase específica.</li>
+                <li><code>#id</code> → selecciona un elemento con un ID único.</li>
+                <li><code>*</code> → selecciona todos los elementos.</li>
+            </ul>
+
+            <h3>Ejemplo práctico combinando HTML y CSS</h3>
+            <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;style&gt;
+        body { background: #f0f0f0; }
+        h1 { color: darkred; }
+        p { font-size: 18px; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bienvenido&lt;/h1&gt;
+    &lt;p&gt;Este es un ejemplo con CSS aplicado.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+        </section>
+    </main>
+
+    <footer>
+        <p>Guía básica sobre html y css, para más profundización, visitar: <a href="https://www.w3schools.com/html/default.asp">W3school</a> </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras de Control - Programación para Principiantes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            color: #e2e8f0;
+            line-height: 1.4;
+            min-height: 100vh;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        header {
+            text-align: center;
+            padding: 1.5rem 0;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: linear-gradient(135deg, #64748b, #475569);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.4);
+            background: linear-gradient(135deg, #475569, #334155);
+        }
+
+        h1 {
+            color: #60a5fa;
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .section {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(96, 165, 250, 0.2);
+        }
+
+        h2 {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            border-bottom: 2px solid rgba(96, 165, 250, 0.3);
+            padding-bottom: 0.4rem;
+        }
+
+        h3 {
+            color: #60a5fa;
+            font-size: 1.2rem;
+            margin: 1rem 0 0.8rem 0;
+        }
+
+        .code-block {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #374151;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 0.8rem 0;
+            font-family: 'Courier New', monospace;
+            color: #fbbf24;
+            overflow-x: auto;
+            position: relative;
+            font-size: 0.85rem;
+        }
+
+        .code-block::before {
+            content: 'Scratch';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #1e293b;
+            color: #60a5fa;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        .categories-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .category-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(96, 165, 250, 0.6);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.3);
+        }
+
+        .category-title {
+            color: #60a5fa;
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .structures-list {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 0.8rem 0;
+        }
+
+        .structure-item {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 6px 0;
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .canva-placeholder {
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px dashed rgba(96, 165, 250, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .canva-placeholder:hover {
+            border-color: rgba(96, 165, 250, 0.8);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .canva-placeholder::before {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight {
+            background: rgba(96, 165, 250, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #60a5fa;
+        }
+
+        .intro-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .intro-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .intro-card h3 {
+            color: #22c55e;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .intro-card p {
+            font-size: 0.85rem;
+        }
+
+        .interactive-demo {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 2px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+        }
+
+        .demo-result {
+            background: rgba(34, 197, 94, 0.2);
+            border: 2px solid #22c55e;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            font-size: 1rem;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .categories-grid, .intro-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+           <a href="../../index.html"> <button class="back-button">   
+            ← Volver
+               
+            </button></a>
+            <h1>⚡ Estructuras de Control</h1>
+            <p class="subtitle">Controla el flujo de tus programas</p>
+        </header>
+
+        <div class="section">
+            <h2>¿Qué son las Estructuras de Control?</h2>
+            <p>Las <span class="highlight">estructuras de control</span> son como las reglas del tráfico en tu programa. Te permiten decidir qué camino tomar, cuándo parar, cuándo repetir acciones, y cómo organizar el flujo de tu código.</p>
+            
+            <div class="intro-cards">
+                <div class="intro-card">
+                    <h3>🚦 Control del Flujo</h3>
+                    <p>Determinan el orden en que se ejecutan las instrucciones de tu programa</p>
+                </div>
+                <div class="intro-card">
+                    <h3>🤔 Toma de Decisiones</h3>
+                    <p>Permiten que tu programa elija diferentes caminos según las condiciones</p>
+                </div>
+                <div class="intro-card">
+                    <h3>🔄 Repetición de Tareas</h3>
+                    <p>Ayudan a repetir acciones sin escribir el mismo código una y otra vez</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📚 Categorías de Estructuras de Control</h2>
+            <p>Existen tres tipos principales de estructuras de control. Cada una tiene un propósito específico:</p>
+        </div>
+
+        <div class="categories-grid">
+            <div class="category-card">
+                <h3 class="category-title">🤔 Estructuras Condicionales</h3>
+                <p>Permiten que tu programa tome decisiones basadas en condiciones. Es como preguntarle al programa "¿Se cumple esto?" y actuar según la respuesta.</p>
+                
+                <div class="structures-list">
+                    <div class="structure-item">
+                        🧩 <strong>SI (IF):</strong> Ejecuta código solo si se cumple una condición
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>SI-SINO (IF-ELSE):</strong> Ejecuta una opción u otra según la condición
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>SI-SINO SI (IF-ELSE IF):</strong> Múltiples condiciones anidadas
+                    </div>
+                </div>
+
+                <div class="canva-placeholder">
+                                      <div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe title="Condicionales" frameborder="0" width="1200" height="675" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genially.com/68c8c95f4a3980215845a3af" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>
+
+                </div>
+
+                <div class="code-block">
+🧩 si ⟨ (edad) ≥ (18) ⟩ entonces
+   💬 decir ⟨ Puedes votar ⟩
+🧩 sino
+   💬 decir ⟨ Aún no puedes votar ⟩
+🧩 fin
+                </div>
+            </div>
+
+            <div class="category-card">
+                <h3 class="category-title">🔄 Estructuras Repetitivas (Bucles)</h3>
+                <p>Te permiten repetir un bloque de código múltiples veces. Son muy útiles para tareas que se repiten, como contar o procesar listas.</p>
+                
+                <div class="structures-list">
+                    <div class="structure-item">
+                        🧩 <strong>MIENTRAS (WHILE):</strong> Repite mientras se cumple una condición
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>REPETIR (REPEAT):</strong> Repite un número específico de veces
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>PARA CADA (FOR EACH):</strong> Repite para cada elemento de una lista
+                    </div>
+                </div>
+
+                <div class="canva-placeholder">
+<div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe title="Estructuras Repetitivas en Programación (Bucles)" frameborder="0" width="1200" height="675" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genially.com/68cb8470965a3d38aae6322d" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>                </div>
+
+                <div class="code-block">
+🧩 repetir (10)
+   🐾 mover (10) pasos
+   🎯 girar ↻ (36) grados
+🧩 fin
+                </div>
+            </div>
+
+            <div class="category-card">
+                <h3 class="category-title">📋 Estructuras Secuenciales</h3>
+                <p>Son la forma más básica de control. Las instrucciones se ejecutan una después de la otra, en el orden que las escribiste.</p>
+                
+                <div class="structures-list">
+                    <div class="structure-item">
+                        🧩 <strong>SECUENCIA SIMPLE:</strong> Instrucciones que se ejecutan en orden
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>BLOQUES DE CÓDIGO:</strong> Grupos de instrucciones organizadas
+                    </div>
+                    <div class="structure-item">
+                        🧩 <strong>PROCEDIMIENTOS:</strong> Secuencias reutilizables (funciones)
+                    </div>
+                </div>
+
+                
+
+                <div class="code-block">
+🧩 al presionar bandera verde
+   💬 decir ⟨ ¡Hola! ⟩
+   🐾 mover (100) pasos
+   💬 decir ⟨ ¡Llegué! ⟩
+🧩 fin
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎮 Prueba Interactiva</h2>
+            <div class="interactive-demo">
+                <h3>🚀 Simulador de Estructuras</h3>
+                <p>¡Experimenta con diferentes tipos de estructuras de control!</p>
+                <button class="demo-button" onclick="mostrarEjemplo('condicional')">🤔 Condicional</button>
+                <button class="demo-button" onclick="mostrarEjemplo('bucle')">🔄 Bucle</button>
+                <button class="demo-button" onclick="mostrarEjemplo('secuencial')">📋 Secuencial</button>
+                <div id="resultado" class="demo-result">
+                    ¡Haz clic en un botón para ver ejemplos de cada estructura!
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Resumen: ¿Cuándo usar cada estructura?</h2>
+            <div class="intro-cards">
+                <div class="intro-card" style="border-color: rgba(249, 115, 22, 0.3);">
+                    <h3 style="color: #f97316;">🤔 Condicionales</h3>
+                    <p>Cuando necesites que tu programa <strong>tome decisiones</strong> basadas en diferentes situaciones</p>
+                </div>
+                <div class="intro-card" style="border-color: rgba(168, 85, 247, 0.3);">
+                    <h3 style="color: #a855f7;">🔄 Bucles</h3>
+                    <p>Cuando necesites <strong>repetir acciones</strong> múltiples veces sin escribir el mismo código</p>
+                </div>
+                <div class="intro-card">
+                    <h3>📋 Secuenciales</h3>
+                    <p>Para <strong>tareas simples</strong> donde las instrucciones se siguen una tras otra</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarEjemplo(tipo) {
+            const resultado = document.getElementById('resultado');
+            
+            switch(tipo) {
+                case 'condicional':
+                    resultado.innerHTML = `
+                        <strong>🤔 Estructura Condicional:</strong><br>
+                        "SI llueve, ENTONCES llevo paraguas, SINO llevo gorra"<br>
+                        <em>Perfecta para tomar decisiones</em>
+                    `;
+                    resultado.style.background = 'rgba(249, 115, 22, 0.2)';
+                    resultado.style.borderColor = '#f97316';
+                    break;
+                    
+                case 'bucle':
+                    resultado.innerHTML = `
+                        <strong>🔄 Estructura Repetitiva:</strong><br>
+                        "REPETIR 10 veces: dar un paso hacia adelante"<br>
+                        <em>Perfecta para tareas repetitivas</em>
+                    `;
+                    resultado.style.background = 'rgba(168, 85, 247, 0.2)';
+                    resultado.style.borderColor = '#a855f7';
+                    break;
+                    
+                case 'secuencial':
+                    resultado.innerHTML = `
+                        <strong>📋 Estructura Secuencial:</strong><br>
+                        "Primero desayuno, después me visto, luego voy al colegio"<br>
+                        <em>Perfecta para pasos ordenados</em>
+                    `;
+                    resultado.style.background = 'rgba(34, 197, 94, 0.2)';
+                    resultado.style.borderColor = '#22c55e';
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
