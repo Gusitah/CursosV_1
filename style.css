@@ -1,0 +1,79 @@
+/* Estilos generales */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  margin: 0;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+    background: #f9f9f9;
+  color: #333;
+}
+
+header {
+  background: #805dd8;
+  color: white;
+  padding: 7px;
+  padding-left: 30px;
+}
+
+
+footer {
+  background: #444;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 20% 1fr 20%;
+  min-height: 80vh;
+}
+
+/* Barras laterales */
+.sidebar {
+  background: #eee;
+  padding: 15px;
+  overflow-y: auto;
+  margin: 20px;
+  border-radius: 7px;
+  box-shadow: #333;
+   box-shadow: 0 0 10px rgba(0,0,0,0.2); /* sombra */
+}
+
+.sidebar h2 {
+  margin-top: 0;
+  color: #444;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 5px 0;
+}
+
+.sidebar ul li a {
+  display: block;
+  background: #d6d6d667;
+  padding: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: 0.3s;
+}
+
+.sidebar ul li a:hover {
+  background: #d6d6d6;
+  color: #000;
+}
+
+/* Contenido principal */
+main {
+  padding: 20px;
+  background: white;
+}

@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoriales: Componentes Interactivos con HTML y CSS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e6ed;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 0 40px 0;
+            border-bottom: 2px solid #333;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+
+        .tutorial {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .tutorial:hover {
+            transform: translateY(-5px);
+        }
+
+        .tutorial h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .tutorial h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .tutorial h3 {
+            color: #9bb5ff;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+        }
+
+        .code-block {
+            background: #1e1e2e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .code-block pre {
+            color: #e0e6ed;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .demo-container {
+            background: #2a2a3e;
+            border: 1px solid #444;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .explanation {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip {
+            background: rgba(150, 206, 180, 0.1);
+            border-left: 4px solid #96ceb4;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip::before {
+            content: "💡 Consejo: ";
+            color: #96ceb4;
+            font-weight: bold;
+        }
+
+        /* ESTILOS PARA LOS DEMOS */
+        
+        /* Dropdown */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #2a2a3e;
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            color: #e0e6ed;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background: #667eea;
+        }
+
+        /* Slider */
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .slide:nth-child(1) { background: linear-gradient(45deg, #667eea, #764ba2); }
+        .slide:nth-child(2) { background: linear-gradient(45deg, #45b7d1, #96ceb4); }
+        .slide:nth-child(3) { background: linear-gradient(45deg, #feca57, #ff6b6b); }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-nav input { display: none; }
+
+        .slider-nav label {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slider-nav label:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        #slide1:checked ~ .slider-container { transform: translateX(0%); }
+        #slide2:checked ~ .slider-container { transform: translateX(-100%); }
+        #slide3:checked ~ .slider-container { transform: translateX(-200%); }
+
+        #slide1:checked ~ .slider-nav label[for="slide1"],
+        #slide2:checked ~ .slider-nav label[for="slide2"],
+        #slide3:checked ~ .slider-nav label[for="slide3"] {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Popup */
+        .popup-trigger {
+            background: linear-gradient(45deg, #45b7d1, #96ceb4);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .popup-content {
+            background: #2a2a3e;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: #a0a0a0;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .popup-checkbox { display: none; }
+
+        .popup-checkbox:checked + .popup-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-checkbox:checked + .popup-overlay .popup-content {
+            transform: scale(1);
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Lightbox Gallery */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .lightbox-trigger { display: none; }
+
+        .lightbox-trigger:checked + .lightbox {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-trigger:checked + .lightbox img {
+            transform: scale(1);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid #333;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .footer-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-button" >← Volver</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Tutoriales: Componentes Interactivos</h1>
+            <p class="subtitle">Aprende a crear componentes web solo con HTML y CSS</p>
+        </div>
+
+        <!-- TUTORIAL 1: MENÚ DESPLEGABLE -->
+        <div class="tutorial">
+            <h2>🍔 Menú Desplegable (Dropdown)</h2>
+            <p>Un menú que se despliega al pasar el mouse, perfecto para navegación y opciones.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Utilizamos la pseudo-clase <code>:hover</code> para mostrar un contenido oculto cuando pasamos el mouse sobre el elemento padre. El contenido se posiciona de forma absoluta y usa transiciones para un efecto suave.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;div class="dropdown"&gt;
+    &lt;button class="dropdown-button"&gt;Menú ▼&lt;/button&gt;
+    &lt;div class="dropdown-content"&gt;
+        &lt;a href="#"&gt;Opción 1&lt;/a&gt;
+        &lt;a href="#"&gt;Opción 2&lt;/a&gt;
+        &lt;a href="#"&gt;Opción 3&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-button {
+    background: #667eea;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    /* Estado inicial: oculto */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+/* ¡La magia está aquí! */
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background: #f1f1f1;
+}</pre>
+            </div>
+
+            <div class="tip">
+                Usa <code>visibility: hidden</code> junto con <code>opacity: 0</code> para evitar que el elemento oculto interfiera con otros elementos.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div class="dropdown">
+                    <button class="dropdown-button">Menú Principal ▼</button>
+                    <div class="dropdown-content">
+                        <a href="#">🏠 Inicio</a>
+                        <a href="#">📝 Servicios</a>
+                        <a href="#">📞 Contacto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 2: SLIDER -->
+        <div class="tutorial">
+            <h2>🎠 Slider / Carrusel</h2>
+            <p>Un carrusel de contenido que permite navegar entre diferentes elementos usando radio buttons.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Utilizamos <strong>radio buttons ocultos</strong> como controladores. Cada radio button, cuando está marcado (<code>:checked</code>), activa una transformación CSS que mueve el contenedor. Los labels actúan como botones navegadores.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;div class="slider"&gt;
+    &lt;!-- Controles ocultos --&gt;
+    &lt;input type="radio" name="slider" id="slide1" checked&gt;
+    &lt;input type="radio" name="slider" id="slide2"&gt;
+    &lt;input type="radio" name="slider" id="slide3"&gt;
+    
+    &lt;!-- Contenido del slider --&gt;
+    &lt;div class="slider-container"&gt;
+        &lt;div class="slide"&gt;Slide 1&lt;/div&gt;
+        &lt;div class="slide"&gt;Slide 2&lt;/div&gt;
+        &lt;div class="slide"&gt;Slide 3&lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Navegación --&gt;
+    &lt;div class="slider-nav"&gt;
+        &lt;label for="slide1"&gt;&lt;/label&gt;
+        &lt;label for="slide2"&gt;&lt;/label&gt;
+        &lt;label for="slide3"&gt;&lt;/label&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.slider {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: 200px;
+    /* Cada slide ocupa el 100% del ancho */
+}
+
+/* Ocultar los radio buttons */
+.slider-nav input {
+    display: none;
+}
+
+.slider-nav label {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* ¡La lógica del slider! */
+#slide1:checked ~ .slider-container {
+    transform: translateX(0%);
+}
+
+#slide2:checked ~ .slider-container {
+    transform: translateX(-100%);
+}
+
+#slide3:checked ~ .slider-container {
+    transform: translateX(-200%);
+}
+
+/* Indicadores activos */
+#slide1:checked ~ .slider-nav label[for="slide1"],
+#slide2:checked ~ .slider-nav label[for="slide2"],
+#slide3:checked ~ .slider-nav label[for="slide3"] {
+    background: white;
+    transform: scale(1.2);
+}</pre>
+            </div>
+
+            <div class="tip">
+                El selector <code>~</code> (hermano general) es clave aquí. Permite que un input afecte elementos que vienen después en el HTML.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div class="slider">
+                    <input type="radio" name="demo-slider" id="slide1" checked>
+                    <input type="radio" name="demo-slider" id="slide2">
+                    <input type="radio" name="demo-slider" id="slide3">
+                    
+                    <div class="slider-container">
+                        <div class="slide">Slide 1</div>
+                        <div class="slide">Slide 2</div>
+                        <div class="slide">Slide 3</div>
+                    </div>
+                    
+                    <div class="slider-nav">
+                        <label for="slide1"></label>
+                        <label for="slide2"></label>
+                        <label for="slide3"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 3: POP-UP -->
+        <div class="tutorial">
+            <h2>🪟 Pop-up Modal</h2>
+            <p>Una ventana modal que se superpone al contenido principal, controlada por un checkbox.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Usamos un <strong>checkbox oculto</strong> como interruptor. Cuando está marcado, el overlay se hace visible. El modal está posicionado de forma fija para cubrir toda la pantalla, y usamos flexbox para centrarlo.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;!-- Botón para abrir --&gt;
+&lt;label for="popup1" class="popup-trigger"&gt;Abrir Pop-up&lt;/label&gt;
+
+&lt;!-- Checkbox oculto (el controlador) --&gt;
+&lt;input type="checkbox" id="popup1" class="popup-checkbox"&gt;
+
+&lt;!-- El modal --&gt;
+&lt;div class="popup-overlay"&gt;
+    &lt;div class="popup-content"&gt;
+        &lt;!-- Botón para cerrar --&gt;
+        &lt;label for="popup1" class="popup-close"&gt;×&lt;/label&gt;
+        &lt;h3&gt;¡Hola!&lt;/h3&gt;
+        &lt;p&gt;Este es un pop-up creado solo con CSS.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.popup-trigger {
+    background: #45b7d1;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Ocultar el checkbox */
+.popup-checkbox {
+    display: none;
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Estado inicial: oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+/* ¡La magia del modal! */
+.popup-checkbox:checked + .popup-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-checkbox:checked + .popup-overlay .popup-content {
+    transform: scale(1);
+}</pre>
+            </div>
+
+            <div class="tip">
+                Usa <code>z-index: 1000</code> para asegurar que el modal aparezca por encima de todo el contenido.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <label for="demo-popup" class="popup-trigger">Abrir Pop-up</label>
+                <input type="checkbox" id="demo-popup" class="popup-checkbox">
+                <div class="popup-overlay">
+                    <div class="popup-content">
+                        <label for="demo-popup" class="popup-close">×</label>
+                        <h3 style="color: #333; margin-bottom: 15px;">¡Hola! 👋</h3>
+                        <p style="color: #666;">Este es un pop-up creado solo con HTML y CSS.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 4: GALERÍA SIMPLE -->
+        <div class="tutorial">
+            <h2>🖼️ Galería de Fotos</h2>
+            <p>Una galería responsiva con efectos hover para mostrar imágenes de forma atractiva.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Usamos <strong>CSS Grid</strong> para crear un layout responsivo que se adapta automáticamente. Los efectos hover dan interactividad visual sin JavaScript.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;div class="gallery"&gt;
+    &lt;div class="gallery-item"&gt;
+        &lt;img src="imagen1.jpg" alt="Descripción 1"&gt;
+    &lt;/div&gt;
+    &lt;div class="gallery-item"&gt;
+        &lt;img src="imagen2.jpg" alt="Descripción 2"&gt;
+    &lt;/div&gt;
+    &lt;div class="gallery-item"&gt;
+        &lt;img src="imagen3.jpg" alt="Descripción 3"&gt;
+    &lt;/div&gt;
+    &lt;!-- Más elementos... --&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.gallery {
+    display: grid;
+    /* Auto-fit crea columnas automáticamente */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.gallery-item {
+    aspect-ratio: 1; /* Cuadrados perfectos */
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantiene proporciones */
+    transition: filter 0.3s ease;
+}
+
+.gallery-item:hover img {
+    filter: brightness(1.1);
+}</pre>
+            </div>
+
+            <div class="tip">
+                <code>object-fit: cover</code> es perfecto para mantener las proporciones de las imágenes sin distorsión.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="../../images/rw1.jpg" alt="Foto 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../../images/rw2.jpg" alt="Foto 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../../images/rw4.jpg" alt="Foto 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="../../images/rw5.jpg" alt="Foto 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 5: GALERÍA CON LIGHTBOX -->
+        <div class="tutorial">
+            <h2>🔍 Galería con Lightbox</h2>
+            <p>Galería donde las imágenes se agrandan al hacer click, creando un efecto de visualización completa.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Cada imagen tiene un <strong>radio button oculto</strong> asociado. Al hacer click en la imagen (que es un label), se marca el radio button y se muestra el lightbox correspondiente con la imagen ampliada.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;div class="lightbox-gallery"&gt;
+    &lt;!-- Item 1 --&gt;
+    &lt;div class="lightbox-item"&gt;
+        &lt;label for="lightbox1"&gt;
+            &lt;img src="thumb1.jpg" alt="Miniatura 1"&gt;
+        &lt;/label&gt;
+        &lt;input type="radio" name="lightbox" id="lightbox1" class="lightbox-trigger"&gt;
+        &lt;div class="lightbox"&gt;
+            &lt;label for="close-lightbox" class="lightbox-close"&gt;×&lt;/label&gt;
+            &lt;img src="full1.jpg" alt="Imagen completa 1"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Item 2 --&gt;
+    &lt;div class="lightbox-item"&gt;
+        &lt;label for="lightbox2"&gt;
+            &lt;img src="thumb2.jpg" alt="Miniatura 2"&gt;
+        &lt;/label&gt;
+        &lt;input type="radio" name="lightbox" id="lightbox2" class="lightbox-trigger"&gt;
+        &lt;div class="lightbox"&gt;
+            &lt;label for="close-lightbox" class="lightbox-close"&gt;×&lt;/label&gt;
+            &lt;img src="full2.jpg" alt="Imagen completa 2"&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Radio button para cerrar todos los lightbox --&gt;
+&lt;input type="radio" name="lightbox" id="close-lightbox" checked style="display: none;"&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.lightbox-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+}
+
+.lightbox-item {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-item:hover {
+    transform: scale(1.03);
+}
+
+.lightbox-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Ocultar los radio buttons */
+.lightbox-trigger {
+    display: none;
+}
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Estado inicial: oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* ¡La magia del lightbox! */
+.lightbox-trigger:checked + .lightbox {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-trigger:checked + .lightbox img {
+    transform: scale(1);
+}</pre>
+            </div>
+
+            <div class="tip">
+                Todos los radio buttons deben tener el mismo <code>name</code> para que solo uno pueda estar activo a la vez.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px;">
+                    <div style="aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <label for="demo-lightbox1">
+                            <img src="../../images/rw1.jpg" alt="Demo 1" style="width: 100%; height: 100%; object-fit: cover;">
+                        </label>
+                        <input type="radio" name="demo-lightbox" id="demo-lightbox1" class="lightbox-trigger">
+                        <div class="lightbox">
+                            <label for="demo-close-lightbox" class="lightbox-close">×</label>
+                            <img src="../../images/rw1.jpg" alt="Demo 1 Grande">
+                        </div>
+                    </div>
+                    
+                    <div style="aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                        <label for="demo-lightbox2">
+                            <img src="../../images/rw3.jpg" alt="Demo 2" style="width: 100%; height: 100%; object-fit: cover;">
+                        </label>
+                        <input type="radio" name="demo-lightbox" id="demo-lightbox2" class="lightbox-trigger">
+                        <div class="lightbox">
+                            <label for="demo-close-lightbox" class="lightbox-close">×</label>
+                            <img src="../../images/rw3.jpg" alt="Demo 2 Grande">
+                        </div>
+                    </div>
+                </div>
+                
+                <input type="radio" name="demo-lightbox" id="demo-close-lightbox" checked style="display: none;">
+                <p style="margin-top: 15px; color: #a0a0a0; font-size: 14px;">Haz click en cualquier imagen para agrandarla</p>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 6: ACORDEÓN -->
+      
+
+        <!-- TUTORIAL 7: TABS -->
+
+
+        <!-- TUTORIAL 8: TOOLTIP -->
+        <div class="tutorial">
+            <h2>💬 Tooltip</h2>
+            <p>Pequeñas ventanas de información que aparecen al pasar el mouse sobre un elemento.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Utilizamos un elemento posicionado de forma absoluta que se muestra con <code>:hover</code>. El pseudo-elemento <code>::after</code> crea la flecha que apunta al elemento padre.</p>
+            </div>
+
+            <h3>🏗️ HTML:</h3>
+            <div class="code-block" data-lang="HTML">
+                <pre>&lt;div class="tooltip"&gt;
+    Pasa el mouse aquí
+    &lt;span class="tooltip-text"&gt;¡Hola! Soy un tooltip&lt;/span&gt;
+&lt;/div&gt;</pre>
+            </div>
+
+            <h3>🎨 CSS:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.tooltip {
+    position: relative;
+    display: inline-block;
+    background: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: 125%; /* Aparece arriba del elemento */
+    left: 50%;
+    transform: translateX(-50%); /* Centrado */
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap; /* Una sola línea */
+    /* Estado inicial: oculto */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* Flecha del tooltip */
+.tooltip-text::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333; /* Color de la flecha */
+}
+
+/* ¡La magia del tooltip! */
+.tooltip:hover .tooltip-text {
+    opacity: 1;
+    visibility: visible;
+}</pre>
+            </div>
+
+            <div class="tip">
+                Usa <code>white-space: nowrap</code> para evitar que el texto del tooltip se divida en múltiples líneas.
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div style="position: relative; display: inline-block; background: #feca57; color: white; padding: 12px 24px; border-radius: 8px; cursor: pointer;" onmouseover="this.querySelector('.demo-tooltip').style.opacity='1'; this.querySelector('.demo-tooltip').style.visibility='visible'" onmouseout="this.querySelector('.demo-tooltip').style.opacity='0'; this.querySelector('.demo-tooltip').style.visibility='hidden'">
+                    Pasa el mouse aquí
+                    <span class="demo-tooltip" style="position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 8px 12px; border-radius: 6px; font-size: 14px; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 100;">¡Hola! Soy un tooltip 👋</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL 9: EFECTOS DE BOTONES -->
+        <div class="tutorial">
+            <h2>✨ Efectos de Botones Avanzados</h2>
+            <p>Botones con animaciones y efectos visuales impactantes usando solo CSS.</p>
+
+            <h3>📋 Cómo funciona:</h3>
+            <div class="explanation">
+                <p>Combinamos <code>:hover</code>, <code>:active</code>, transiciones CSS y pseudo-elementos para crear efectos llamativos. Usamos <code>transform</code>, <code>box-shadow</code> y <code>filter</code> para los efectos visuales.</p>
+            </div>
+
+            <h3>🎨 Efecto Glow (Brillo):</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.btn-glow {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 rgba(102, 126, 234, 0.5);
+}
+
+.btn-glow:hover {
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+    transform: translateY(-2px);
+}</pre>
+            </div>
+
+            <h3>🎨 Efecto Ripple (Ondas):</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.btn-ripple {
+    position: relative;
+    background: #45b7d1;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.btn-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-ripple:hover::before {
+    width: 300px;
+    height: 300px;
+}</pre>
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+                    <!-- Botón Glow -->
+                    <button style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 0 rgba(102, 126, 234, 0.5);" onmouseover="this.style.boxShadow='0 0 20px rgba(102, 126, 234, 0.8)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='0 0 0 rgba(102, 126, 234, 0.5)'; this.style.transform='translateY(0)'">
+                        Efecto Glow
+                    </button>
+
+                    <!-- Botón 3D -->
+                    <button style="background: #96ceb4; color: white; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; transition: all 0.1s ease; box-shadow: 0 6px 0 #7ab899;" onmousedown="this.style.transform='translateY(3px)'; this.style.boxShadow='0 3px 0 #7ab899'" onmouseup="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 0 #7ab899'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 0 #7ab899'">
+                        Botón 3D
+                    </button>
+
+                    <!-- Botón Gradient Shift -->
+                    <button style="background: linear-gradient(45deg, #feca57, #ff6b6b); color: white; padding: 15px 30px; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s ease; background-size: 200% 200%; background-position: 0% 50%;" onmouseover="this.style.backgroundPosition='100% 50%'" onmouseout="this.style.backgroundPosition='0% 50%'">
+                        Gradient Shift
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TUTORIAL BONUS: LOADING SPINNERS -->
+        <div class="tutorial">
+            <h2>⏳ Spinners de Carga</h2>
+            <p>Animaciones de carga que indican al usuario que algo está procesándose.</p>
+
+            <h3>🎨 Spinner Rotativo Básico:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}</pre>
+            </div>
+
+            <h3>🎨 Spinner de Puntos:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>.spinner-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #007bff;
+    border-radius: 50%;
+    animation: bounce 1.4s ease-in-out infinite both;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1); }
+}</pre>
+            </div>
+
+            <h3>🎯 Demo:</h3>
+            <div class="demo-container">
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 30px;">
+                    <!-- Spinner Rotativo -->
+                    <div style="width: 40px; height: 40px; border: 4px solid rgba(102, 126, 234, 0.3); border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                    
+                    <!-- Spinner Puntos -->
+                    <div style="display: flex; gap: 8px;">
+                        <div style="width: 12px; height: 12px; background: #667eea; border-radius: 50%; animation: bounce 1.4s ease-in-out infinite both; animation-delay: -0.32s;"></div>
+                        <div style="width: 12px; height: 12px; background: #764ba2; border-radius: 50%; animation: bounce 1.4s ease-in-out infinite both; animation-delay: -0.16s;"></div>
+                        <div style="width: 12px; height: 12px; background: #45b7d1; border-radius: 50%; animation: bounce 1.4s ease-in-out infinite both;"></div>
+                    </div>
+                    
+                    <!-- Pulse -->
+                    <div style="width: 40px; height: 40px; background: #96ceb4; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite;"></div>
+                </div>
+            </div>
+
+            <style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+                
+                @keyframes bounce {
+                    0%, 80%, 100% { transform: scale(0); }
+                    40% { transform: scale(1); }
+                }
+                
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.1); opacity: 0.7; }
+                }
+            </style>
+        </div>
+
+        <!-- TUTORIAL FINAL: CONSEJOS Y MEJORES PRÁCTICAS -->
+        <div class="tutorial">
+            <h2>🎯 Consejos y Mejores Prácticas</h2>
+            
+            <h3>✅ Consejos Importantes:</h3>
+            <div class="explanation">
+                <ul style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>Semántica HTML:</strong> Usa elementos HTML semánticamente correctos antes de aplicar CSS.</li>
+                    <li><strong>Accesibilidad:</strong> Asegúrate de que los componentes sean navegables por teclado.</li>
+                    <li><strong>Fallbacks:</strong> Proporciona alternativas para navegadores que no soporten ciertas características.</li>
+                    <li><strong>Performance:</strong> Evita animaciones en propiedades que causen reflow (como width, height).</li>
+                    <li><strong>Mobile First:</strong> Diseña primero para móvil y luego escala a pantallas más grandes.</li>
+                </ul>
+            </div>
+
+            <h3>🛠️ Herramientas Útiles:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                <div style="background: rgba(102, 126, 234, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+                    <h4>🔍 DevTools del Navegador</h4>
+                    <p>Inspecciona, debuggea y experimenta con CSS en tiempo real.</p>
+                </div>
+                
+                <div style="background: rgba(118, 75, 162, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #764ba2;">
+                    <h4>📏 CSS Grid Generator</h4>
+                    <p>Herramientas online para generar layouts de CSS Grid visualmente.</p>
+                </div>
+                
+                <div style="background: rgba(69, 183, 209, 0.1); padding: 20px; border-radius: 10px; border-left: 4px solid #45b7d1;">
+                    <h4>🎨 Gradient Generators</h4>
+                    <p>Crea gradientes hermosos con herramientas visuales online.</p>
+                </div>
+            </div>
+
+            <h3>📚 Propiedades CSS Clave para Interactividad:</h3>
+            <div class="code-block" data-lang="CSS">
+                <pre>/* Pseudo-clases importantes */
+:hover          /* Al pasar el mouse */
+:active         /* Al hacer click */
+:focus          /* Al recibir foco */
+:checked        /* Checkbox/radio marcado */
+:disabled       /* Elemento deshabilitado */
+:first-child    /* Primer hijo */
+:last-child     /* Último hijo */
+:nth-child(n)   /* Enésimo hijo */
+
+/* Pseudo-elementos útiles */
+::before        /* Contenido antes del elemento */
+::after         /* Contenido después del elemento */
+::first-line    /* Primera línea de texto */
+::first-letter  /* Primera letra */
+
+/* Selectores combinadores */
+.parent > .child    /* Hijo directo */
+.parent .descendant /* Cualquier descendiente */
+.sibling + .next    /* Hermano inmediato */
+.sibling ~ .general /* Hermanos generales */
+
+/* Propiedades de transición */
+transition: property duration timing-function delay;
+transform: translate() rotate() scale() skew();
+animation: name duration timing-function delay iteration-count direction;
+
+/* Propiedades de posicionamiento */
+position: static | relative | absolute | fixed | sticky;
+z-index: number;    /* Orden de apilamiento */
+overflow: visible | hidden | scroll | auto;</pre>
+            </div>
+
+            <div class="tip">
+                Experimenta combinando estas propiedades. La creatividad en CSS viene de mezclar conceptos básicos de maneras innovadoras.
+            </div>
+
+            <h3>🚀 Siguientes Pasos:</h3>
+            <div style="background: rgba(150, 206, 180, 0.1); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <ol style="margin-left: 20px; line-height: 1.8;">
+                    <li><strong>Practica:</strong> Crea proyectos pequeños implementando cada componente.</li>
+                    <li><strong>Experimenta:</strong> Modifica los ejemplos y observa qué sucede.</li>
+                    <li><strong>Combina:</strong> Mezcla diferentes técnicas en un solo proyecto.</li>
+                    <li><strong>Optimiza:</strong> Aprende sobre performance y accesibilidad web.</li>
+                    <li><strong>Evoluciona:</strong> Cuando domines CSS, aprende JavaScript para interacciones más complejas.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- RESUMEN FINAL -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 15px; text-align: center; margin: 40px 0; color: white;">
+            <h2 style="margin-bottom: 20px; font-size: 2rem;">🎉 ¡Felicitaciones!</</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 20px; opacity: 0.9;">
+                Ahora conoces las técnicas fundamentales para crear componentes interactivos solo con HTML y CSS.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                    <h4>📋 Componentes Aprendidos</h4>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Menús, sliders, pop-ups, galerías, acordeones, tabs, tooltips y más</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                    <h4>🎨 Técnicas CSS</h4>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">:hover, :checked, transformaciones, transiciones, posicionamiento</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px;">
+                    <h4>🛠️ Herramientas</h4>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Radio buttons, checkboxes, labels, pseudo-elementos, selectores CSS</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 10px;">
+                <h3> Recuerda:</h3>
+                <p style="margin: 10px 0;">
+                    Practicar
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>¿Quieres aprender aún más componentes y técnicas avanzadas?</p>
+        <p style="margin-bottom: 10px;">Encuentra tutoriales completos, documentación detallada y ejemplos interactivos en:</p>
+        <a href="https://www.w3schools.com/" target="_blank" class="footer-button">
+            🌐 Visitar W3Schools
+        </a>
+        <p style="margin-top: 20px; font-size: 0.9rem; opacity: 0.8;">
+            W3Schools es tu recurso completo para aprender desarrollo web paso a paso.
+        </p>
+    </footer>
+</body>
+</html>

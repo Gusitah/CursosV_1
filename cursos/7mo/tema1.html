@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Algoritmos y Diagramas de Flujo</title>
+  <style>
+    /* ==================== Variables y Tipografía ==================== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #1a1a2e;
+      --bg-card: rgba(25, 25, 50, 0.8);
+      --bg-glass: rgba(255, 255, 255, 0.05);
+      --text-primary: #ffffff;
+      --text-secondary: #b0b3c1;
+      --text-muted: #6b7280;
+      --accent-primary: #00d4ff;
+      --accent-secondary: #7c3aed;
+      --accent-success: #10b981;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --blur: blur(20px);
+      --radius: 16px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    /* ==================== Reset y Base ==================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: var(--font);
+      background: 
+        radial-gradient(ellipse at top, rgba(120, 119, 198, 0.3), transparent),
+        radial-gradient(ellipse at bottom, rgba(255, 119, 198, 0.15), transparent),
+        linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ==================== Header ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.8);
+      backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    .brand-icon {
+      width: 2rem;
+      height: 2rem;
+      background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-link {
+      padding: 0.5rem 1rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+      background: var(--bg-glass);
+      transform: translateY(-2px);
+    }
+
+    /* ==================== Hero Section ==================== */
+    .hero {
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 3rem;
+      line-height: 1.6;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .feature-badge {
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      backdrop-filter: var(--blur);
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ==================== Container y Grid ==================== */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      margin-bottom: 6rem;
+      scroll-margin-top: 100px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+
+    /* ==================== Typography ==================== */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 4rem;
+      height: 3px;
+      background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+      border-radius: 2px;
+    }
+
+    .subsection-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin: 2rem 0 1rem;
+    }
+
+    .text {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .highlight {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    /* ==================== Lists ==================== */
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .list-icon {
+      width: 1.5rem;
+      height: 1.5rem;
+      background: linear-gradient(45deg, var(--accent-success), #34d399);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .step-list {
+      list-style: none;
+      counter-reset: step;
+      padding: 0;
+    }
+
+    .step-list li {
+      counter-increment: step;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: -15px;
+      top: 1.5rem;
+      width: 2rem;
+      height: 2rem;
+      background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+
+    /* ==================== Diagrams ==================== */
+    .diagram-container {
+      background: #0f0f18;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagram-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.1), transparent),
+                  radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1), transparent);
+      pointer-events: none;
+    }
+
+    .diagram-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .symbols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .symbol-item {
+      background: var(--bg-glass);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .symbol-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .symbol-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==================== Examples ==================== */
+    .example-card {
+      background: linear-gradient(135deg, var(--bg-card), rgba(25, 25, 50, 0.6));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .example-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .algorithm-steps {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 3px solid var(--accent-primary);
+      padding: 1rem 1.5rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .code {
+      background: #0a0a0f;
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--accent-primary);
+    }
+
+    /* ==================== Table ==================== */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-glass);
+    }
+
+    .table th {
+      background: var(--bg-secondary);
+      color: var(--accent-primary);
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+    }
+
+    .table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ==================== Footer ==================== */
+    .footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* ==================== Responsive ==================== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero {
+        padding: 6rem 1rem 3rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+      
+      .hero-features {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ==================== Animations ==================== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .stagger-1 { animation-delay: 0.1s; }
+    .stagger-2 { animation-delay: 0.2s; }
+    .stagger-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <!-- =============== Header =============== -->
+  <header class="header">
+    <nav class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">⚡</div>
+        <span>Algoritmos & Flujo</span>
+      </a>
+      <div class="nav-links">
+        <a href="#algoritmo" class="nav-link">Algoritmos</a>
+        <a href="#diagrama" class="nav-link">Diagramas</a>
+        <a href="#proceso" class="nav-link">Proceso</a>
+        <a href="#ejemplos" class="nav-link">Ejemplos</a>
+        <a href="../../index.html" class="nav-link" style="background: var(--bg-glass); border: 1px solid var(--border);">← Volver</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =============== Hero Section =============== -->
+  <section class="hero">
+    <h1 class="hero-title">Algoritmos y Diagramas de Flujo</h1>
+    <p class="hero-subtitle">
+      Domina los fundamentos de la programación y resolución de problemas con esta guía completa y visual
+    </p>
+    <div class="hero-features">
+      <div class="feature-badge">
+        <span>📚</span>
+        Conceptos Claros
+      </div>
+      <div class="feature-badge">
+        <span>🎯</span>
+        Ejemplos Prácticos
+      </div>
+      <div class="feature-badge">
+        <span>🔄</span>
+        Diagramas Interactivos
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- =============== Sección: ¿Qué es un algoritmo? =============== -->
+    <section id="algoritmo" class="section">
+      <div class="card">
+        <h2 class="section-title">¿Qué es un Algoritmo?</h2>
+        <p class="text">
+          Un <span class="highlight">algoritmo</span> es una secuencia finita, ordenada y precisa de instrucciones que 
+          describe cómo resolver un problema específico o realizar una tarea determinada. Es la base fundamental 
+          de toda programación y resolución sistemática de problemas.
+        </p>
+
+        <h3 class="subsection-title">Características Fundamentales</h3>
+        <ul class="feature-list">
+          <li>
+            <div class="list-icon">✓</div>
+            <div>
+              <strong>Finitud:</strong> Debe terminar después de un número finito de pasos
+            </div>
+          </li>
+          <li>
+            <div class="list-icon">✓</div>
+            <div>
+              <strong>Precisión:</strong> Cada paso debe estar claramente definido, sin ambigüedades
+            </div>
+          </li>
+          <li>
+            <div class="list-icon">✓</div>
+            <div>
+              <strong>Entrada:</strong> Puede tener cero o más datos de entrada
+            </div>
+          </li>
+          <li>
+            <div class="list-icon">✓</div>
+            <div>
+              <strong>Salida:</strong> Debe producir al menos un resultado
+            </div>
+          </li>
+          <li>
+            <div class="list-icon">✓</div>
+            <div>
+              <strong>Efectividad:</strong> Cada operación debe ser realizable en tiempo finito
+            </div>
+          </li>
+        </ul>
+
+        <div class="example-card">
+          <h4 class="example-title">🧉 Ejemplo: Preparar Mate (Algoritmo Cotidiano)</h4>
+          <div class="algorithm-steps">
+            <ol>
+              <li>Verificar que tengas yerba, mate y bombilla</li>
+              <li>Llenar 2/3 del mate con yerba</li>
+              <li>Inclinar el mate 45° y formar un hueco</li>
+              <li>Calentar agua a 75-80°C (no hervir)</li>
+              <li>Agregar un poco de agua fría en el hueco</li>
+              <li>Insertar la bombilla en la parte húmeda</li>
+              <li>Cebar con agua caliente y disfrutar</li>
+            </ol>
+          </div>
+          <p class="text">
+            Este algoritmo es <em>finito</em> (tiene un final), <em>preciso</em> (cada paso es claro), 
+            tiene <em>entrada</em> (ingredientes) y <em>salida</em> (mate listo).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== Sección: Diagramas de Flujo =============== -->
+    <section id="diagrama" class="section">
+      <div class="card">
+        <h2 class="section-title">¿Qué son los Diagramas de Flujo?</h2>
+        <p class="text">
+          Un <span class="highlight">diagrama de flujo</span> es una representación gráfica de un algoritmo 
+          que utiliza símbolos estandarizados conectados por flechas para mostrar la secuencia lógica de pasos 
+          y decisiones en un proceso.
+        </p>
+
+        <h3 class="subsection-title">Símbolos Estándar</h3>
+        <div class="diagram-container">
+          <div class="symbols-grid">
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <ellipse cx="50" cy="30" rx="45" ry="25" fill="none" stroke="#00d4ff" stroke-width="2"/>
+                <text x="50" y="35" text-anchor="middle" fill="#ffffff" font-size="12">Inicio/Fin</text>
+              </svg>
+              <div class="symbol-name">Terminal</div>
+              <div class="symbol-desc">Indica el inicio o final del proceso</div>
+            </div>
+
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <rect x="10" y="15" width="80" height="30" fill="none" stroke="#10b981" stroke-width="2"/>
+                <text x="50" y="35" text-anchor="middle" fill="#ffffff" font-size="12">Proceso</text>
+              </svg>
+              <div class="symbol-name">Proceso</div>
+              <div class="symbol-desc">Representa una acción o operación</div>
+            </div>
+
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <polygon points="50,10 85,30 50,50 15,30" fill="none" stroke="#ef4444" stroke-width="2"/>
+                <text x="50" y="35" text-anchor="middle" fill="#ffffff" font-size="11">Decisión</text>
+              </svg>
+              <div class="symbol-name">Decisión</div>
+              <div class="symbol-desc">Punto de decisión con múltiples salidas</div>
+            </div>
+
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <polygon points="20,15 80,15 90,45 10,45" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                <text x="50" y="35" text-anchor="middle" fill="#ffffff" font-size="12">E/S</text>
+              </svg>
+              <div class="symbol-name">Entrada/Salida</div>
+              <div class="symbol-desc">Datos de entrada o resultados</div>
+            </div>
+
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <circle cx="50" cy="30" r="15" fill="none" stroke="#7c3aed" stroke-width="2"/>
+                <text x="50" y="35" text-anchor="middle" fill="#ffffff" font-size="12">A</text>
+              </svg>
+              <div class="symbol-name">Conector</div>
+              <div class="symbol-desc">Une diferentes partes del diagrama</div>
+            </div>
+
+            <div class="symbol-item">
+              <svg width="100" height="60" viewBox="0 0 100 60">
+                <defs>
+                  <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#00d4ff"/>
+                  </marker>
+                </defs>
+                <line x1="20" y1="30" x2="80" y2="30" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrowhead)"/>
+              </svg>
+              <div class="symbol-name">Flujo</div>
+              <div class="symbol-desc">Indica la dirección del proceso</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="subsection-title">Beneficios de los Diagramas de Flujo</h3>
+        <ul class="feature-list">
+          <li>
+            <div class="list-icon">👁️</div>
+            <div><strong>Visualización clara:</strong> Facilita la comprensión del proceso completo</div>
+          </li>
+          <li>
+            <div class="list-icon">🔍</div>
+            <div><strong>Detección de errores:</strong> Ayuda a identificar problemas lógicos</div>
+          </li>
+          <li>
+            <div class="list-icon">📞</div>
+            <div><strong>Comunicación:</strong> Lenguaje universal para describir procesos</div>
+          </li>
+          <li>
+            <div class="list-icon">🔧</div>
+            <div><strong>Mantenimiento:</strong> Facilita modificaciones y actualizaciones</div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =============== Sección: Proceso de Creación =============== -->
+    <section id="proceso" class="section">
+      <div class="card">
+        <h2 class="section-title">¿Cómo Crear un Diagrama de Flujo?</h2>
+        <p class="text">
+          Crear un diagrama de flujo efectivo requiere un enfoque sistemático. Sigue estos pasos 
+          para desarrollar diagramas claros y funcionales.
+        </p>
+
+        <ol class="step-list">
+          <li>
+            <strong>Definir el Problema</strong><br>
+            Identifica claramente qué proceso quieres representar. Define los objetivos, 
+            entradas esperadas y resultados deseados.
+          </li>
+          <li>
+            <strong>Listar las Actividades</strong><br>
+            Enumera todas las tareas, decisiones y puntos de control necesarios. 
+            Ordénalos secuencialmente desde el inicio hasta el final.
+          </li>
+          <li>
+            <strong>Identificar Decisiones</strong><br>
+            Determina todos los puntos donde se debe tomar una decisión (Sí/No, Verdadero/Falso) 
+            y define las rutas alternativas.
+          </li>
+          <li>
+            <strong>Seleccionar Símbolos</strong><br>
+            Asigna el símbolo apropiado a cada actividad según los estándares establecidos. 
+            Mantén consistencia en todo el diagrama.
+          </li>
+          <li>
+            <strong>Conectar con Flechas</strong><br>
+            Une todos los símbolos con líneas de flujo que muestren claramente la secuencia 
+            y dirección del proceso.
+          </li>
+          <li>
+            <strong>Revisar y Validar</strong><br>
+            Verifica que el diagrama sea completo, lógico y libre de bucles infinitos. 
+            Prueba diferentes escenarios de entrada.
+          </li>
+        </ol>
+
+        <div class="example-card">
+          <h4 class="example-title">💡 Consejos para Diagramas Efectivos</h4>
+          <ul class="feature-list">
+            <li>
+              <div class="list-icon">📏</div>
+              <div>Mantén un flujo de arriba hacia abajo y de izquierda a derecha</div>
+            </li>
+            <li>
+              <div class="list-icon">🎯</div>
+              <div>Usa textos concisos y específicos en cada símbolo</div>
+            </li>
+            <li>
+              <div class="list-icon">🔄</div>
+              <div>Evita cruzar líneas de flujo innecesariamente</div>
+            </li>
+            <li>
+              <div class="list-icon">✨</div>
+              <div>Mantén un espaciado uniforme entre elementos</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============== Sección: Ejemplos Completos =============== -->
+    <section id="ejemplos" class="section">
+      <div class="card fade-in">
+        <h2 class="section-title">Ejemplos Completos</h2>
+        <p class="text">
+          A continuación se presentan ejemplos detallados que ilustran cómo aplicar los conceptos 
+          de algoritmos y diagramas de flujo en situaciones reales.
+        </p>
+
+        <div class="grid grid-2">
+          <!-- Ejemplo 1: Mayor de tres números -->
+          <div class="example-card">
+            <h4 class="example-title">🔢 Mayor de Tres Números</h4>
+            
+            <h5 style="color: var(--accent-primary); margin: 1rem 0 0.5rem;">Algoritmo:</h5>
+            <div class="algorithm-steps">
+              <ol>
+                <li>Leer el primer número (A)</li>
+                <li>Leer el segundo número (B)</li>
+                <li>Leer el tercer número (C)</li>
+                <li>Si A > B, entonces</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Si A > C, entonces A es el mayor</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Si no, C es el mayor</li>
+                <li>Si no (B >= A), entonces</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Si B > C, entonces B es el mayor</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Si no, C es el mayor</li>
+                <li>Mostrar el número mayor</li>
+              </ol>
+            </div>
+
+            <div class="diagram-container">
+              <div class="diagram-title">Diagrama de Flujo - Mayor de Tres Números</div>
+              <svg viewBox="0 0 500 600" width="100%" height="600">
+                <defs>
+                  <marker id="arrow1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#00d4ff"/>
+                  </marker>
+                </defs>
+                
+                <!-- Inicio -->
+                <ellipse cx="250" cy="25" rx="60" ry="20" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="250" y="31" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">INICIO</text>
+                
+                <!-- Leer A -->
+                <polygon points="190,65 310,65 300,95 200,95" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="250" y="85" text-anchor="middle" fill="#ffffff" font-size="11">Leer A</text>
+                
+                <!-- Leer B -->
+                <polygon points="190,115 310,115 300,145 200,145" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="250" y="135" text-anchor="middle" fill="#ffffff" font-size="11">Leer B</text>
+                
+                <!-- Leer C -->
+                <polygon points="190,165 310,165 300,195 200,195" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="250" y="185" text-anchor="middle" fill="#ffffff" font-size="11">Leer C</text>
+                
+                <!-- Decisión A > B -->
+                <polygon points="250,225 320,255 250,285 180,255" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="250" y="260" text-anchor="middle" fill="#ffffff" font-size="11">¿A > B?</text>
+                
+                <!-- Decisión A > C (izquierda) -->
+                <polygon points="120,325 190,355 120,385 50,355" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="120" y="360" text-anchor="middle" fill="#ffffff" font-size="10">¿A > C?</text>
+                
+                <!-- Decisión B > C (derecha) -->
+                <polygon points="380,325 450,355 380,385 310,355" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="380" y="360" text-anchor="middle" fill="#ffffff" font-size="10">¿B > C?</text>
+                
+                <!-- Resultados -->
+                <rect x="60" y="420" width="60" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="90" y="440" text-anchor="middle" fill="#ffffff" font-size="11">Mayor = A</text>
+                
+                <rect x="170" y="420" width="60" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="200" y="440" text-anchor="middle" fill="#ffffff" font-size="11">Mayor = C</text>
+                
+                <rect x="270" y="420" width="60" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="300" y="440" text-anchor="middle" fill="#ffffff" font-size="11">Mayor = C</text>
+                
+                <rect x="380" y="420" width="60" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="410" y="440" text-anchor="middle" fill="#ffffff" font-size="11">Mayor = B</text>
+                
+                <!-- Mostrar resultado -->
+                <polygon points="190,480 310,480 300,510 200,510" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="250" y="500" text-anchor="middle" fill="#ffffff" font-size="11">Mostrar Mayor</text>
+                
+                <!-- Fin -->
+                <ellipse cx="250" cy="545" rx="50" ry="18" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="250" y="551" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">FIN</text>
+                
+                <!-- Flechas principales -->
+                <line x1="250" y1="45" x2="250" y2="65" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="95" x2="250" y2="115" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="145" x2="250" y2="165" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="195" x2="250" y2="225" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Decisiones -->
+                <line x1="180" y1="255" x2="120" y2="325" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="320" y1="255" x2="380" y2="325" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Resultados A > C -->
+                <line x1="90" y1="325" x2="90" y2="420" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="150" y1="355" x2="200" y2="420" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Resultados B > C -->
+                <line x1="410" y1="325" x2="410" y2="420" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="350" y1="355" x2="300" y2="420" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Hacia mostrar -->
+                <line x1="90" y1="450" x2="90" y2="495" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="90" y1="495" x2="200" y2="495" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="200" y1="450" x2="200" y2="480" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="300" y1="450" x2="300" y2="495" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="300" y1="495" x2="300" y2="495" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="410" y1="450" x2="410" y2="495" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="410" y1="495" x2="300" y2="495" stroke="#00d4ff" stroke-width="2"/>
+                
+                <!-- Al fin -->
+                <line x1="250" y1="510" x2="250" y2="527" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Etiquetas Sí/No -->
+                <text x="140" y="290" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="360" y="290" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="80" y="340" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="160" y="340" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="420" y="340" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="340" y="340" fill="#ef4444" font-size="10" font-weight="600">No</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Ejemplo 2: Validación de edad para votar -->
+          <div class="example-card">
+            <h4 class="example-title">🗳️ Validación de Edad para Votar</h4>
+            
+            <h5 style="color: var(--accent-primary); margin: 1rem 0 0.5rem;">Algoritmo:</h5>
+            <div class="algorithm-steps">
+              <ol>
+                <li>Solicitar la edad de la persona</li>
+                <li>Verificar si la edad es un número válido</li>
+                <li>Si la edad es menor a 0, mostrar error</li>
+                <li>Si la edad es mayor a 150, mostrar error</li>
+                <li>Si la edad es mayor o igual a 18 años</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Mostrar "Puede votar"</li>
+                <li>Si no (edad < 18)</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Calcular años faltantes = 18 - edad</li>
+                <li>&nbsp;&nbsp;&nbsp;&nbsp;Mostrar "No puede votar. Faltan X años"</li>
+              </ol>
+            </div>
+
+            <div class="diagram-container">
+              <div class="diagram-title">Diagrama de Flujo - Validación para Votar</div>
+              <svg viewBox="0 0 550 700" width="100%" height="700">
+                <defs>
+                  <marker id="arrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#00d4ff"/>
+                  </marker>
+                </defs>
+                
+                <!-- Inicio -->
+                <ellipse cx="275" cy="25" rx="60" ry="20" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="275" y="31" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">INICIO</text>
+                
+                <!-- Entrada edad -->
+                <polygon points="205,65 345,65 335,95 215,95" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="275" y="85" text-anchor="middle" fill="#ffffff" font-size="11">Ingresar edad</text>
+                
+                <!-- Validación edad < 0 -->
+                <polygon points="275,125 345,155 275,185 205,155" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="275" y="160" text-anchor="middle" fill="#ffffff" font-size="10">¿edad < 0?</text>
+                
+                <!-- Error edad negativa -->
+                <rect x="420" y="140" width="100" height="30" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="470" y="160" text-anchor="middle" fill="#ffffff" font-size="10">Error: Edad inválida</text>
+                
+                <!-- Validación edad > 150 -->
+                <polygon points="275,215 345,245 275,275 205,245" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="275" y="250" text-anchor="middle" fill="#ffffff" font-size="10">¿edad > 150?</text>
+                
+                <!-- Error edad muy alta -->
+                <rect x="420" y="230" width="100" height="30" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="470" y="250" text-anchor="middle" fill="#ffffff" font-size="10">Error: Edad inválida</text>
+                
+                <!-- Validación edad >= 18 -->
+                <polygon points="275,305 345,335 275,365 205,335" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="275" y="340" text-anchor="middle" fill="#ffffff" font-size="10">¿edad ≥ 18?</text>
+                
+                <!-- Puede votar -->
+                <rect x="225" y="395" width="100" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="275" y="415" text-anchor="middle" fill="#ffffff" font-size="11">Puede votar</text>
+                
+                <!-- Calcular años faltantes -->
+                <rect x="50" y="395" width="120" height="30" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="110" y="415" text-anchor="middle" fill="#ffffff" font-size="10">faltantes = 18 - edad</text>
+                
+                <!-- No puede votar -->
+                <polygon points="20,455 200,455 190,485 30,485" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="110" y="475" text-anchor="middle" fill="#ffffff" font-size="9">Mostrar: "No puede votar"</text>
+                
+                <!-- Mostrar años faltantes -->
+                <polygon points="20,515 200,515 190,545 30,545" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="110" y="535" text-anchor="middle" fill="#ffffff" font-size="9">Mostrar años faltantes</text>
+                
+                <!-- Fin -->
+                <ellipse cx="275" cy="600" rx="50" ry="18" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="275" y="606" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">FIN</text>
+                
+                <!-- Conexiones principales -->
+                <line x1="275" y1="45" x2="275" y2="65" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="275" y1="95" x2="275" y2="125" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="275" y1="185" x2="275" y2="215" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="275" y1="275" x2="275" y2="305" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="275" y1="365" x2="275" y2="395" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- Errores -->
+                <line x1="345" y1="155" x2="420" y2="155" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="345" y1="245" x2="420" y2="245" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- No puede votar -->
+                <line x1="205" y1="335" x2="110" y2="395" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="110" y1="425" x2="110" y2="455" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="110" y1="485" x2="110" y2="515" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- Hacia el fin -->
+                <line x1="275" y1="425" x2="275" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="275" y1="580" x2="275" y2="582" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="110" y1="545" x2="110" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="110" y1="580" x2="225" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="470" y1="170" x2="470" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="470" y1="580" x2="325" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="470" y1="260" x2="470" y2="290" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="470" y1="290" x2="470" y2="290" stroke="#00d4ff" stroke-width="2"/>
+                
+                <!-- Etiquetas Sí/No -->
+                <text x="380" y="145" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="285" y="205" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="380" y="235" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="285" y="295" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="285" y="385" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="170" y="350" fill="#ef4444" font-size="10" font-weight="600">No</text>
+              </svg>
+            </div>
+          </div>
+        </div> font-size="12" font-weight="600">FIN</text>
+                
+                <!-- Flechas -->
+                <line x1="250" y1="50" x2="250" y2="80" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="120" x2="250" y2="150" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="190" x2="250" y2="220" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="260" x2="250" y2="290" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="320" y1="320" x2="350" y2="320" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="350" x2="250" y2="380" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="320" y1="410" x2="350" y2="410" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="440" x2="250" y2="470" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="320" y1="500" x2="350" y2="500" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="250" y1="530" x2="220" y2="560" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                <line x1="390" y1="340" x2="390" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="390" y1="580" x2="250" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="250" y1="580" x2="250" y2="600" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow1)"/>
+                
+                <!-- Etiquetas Sí/No -->
+                <text x="340" y="310" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="260" y="370" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="340" y="400" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="260" y="460" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="340" y="490" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="240" y="550" fill="#ef4444" font-size="10" font-weight="600">No</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Ejemplo 2: Sistema de Autenticación -->
+          <div class="example-card">
+            <h4 class="example-title">🔐 Sistema de Autenticación de Usuario</h4>
+            
+            <h5 style="color: var(--accent-primary); margin: 1rem 0 0.5rem;">Algoritmo:</h5>
+            <div class="algorithm-steps">
+              <ol>
+                <li>Solicitar nombre de usuario</li>
+                <li>Solicitar contraseña</li>
+                <li>Validar formato de usuario</li>
+                <li>Verificar usuario en base de datos</li>
+                <li>Si usuario existe, verificar contraseña</li>
+                <li>Si es correcta, incrementar intentos fallidos</li>
+                <li>Si intentos < 3, permitir reintento</li>
+                <li>Si intentos = 3, bloquear cuenta</li>
+                <li>Si todo es correcto, permitir acceso</li>
+              </ol>
+            </div>
+
+            <div class="diagram-container">
+              <div class="diagram-title">Diagrama de Flujo - Autenticación</div>
+              <svg viewBox="0 0 600 700" width="100%" height="700">
+                <defs>
+                  <marker id="arrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#00d4ff"/>
+                  </marker>
+                </defs>
+                
+                <!-- Inicio -->
+                <ellipse cx="300" cy="30" rx="70" ry="20" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="300" y="36" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">INICIO</text>
+                
+                <!-- Inicializar intentos -->
+                <rect x="230" y="70" width="140" height="35" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="300" y="92" text-anchor="middle" fill="#ffffff" font-size="11">intentos = 0</text>
+                
+                <!-- Entrada Usuario -->
+                <polygon points="220,130 380,130 370,170 230,170" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="300" y="155" text-anchor="middle" fill="#ffffff" font-size="11">Ingresar usuario</text>
+                
+                <!-- Entrada Contraseña -->
+                <polygon points="220,190 380,190 370,230 230,230" fill="#1a1a2e" stroke="#f59e0b" stroke-width="2"/>
+                <text x="300" y="215" text-anchor="middle" fill="#ffffff" font-size="11">Ingresar contraseña</text>
+                
+                <!-- Validar usuario existe -->
+                <polygon points="300,260 380,290 300,320 220,290" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="300" y="295" text-anchor="middle" fill="#ffffff" font-size="10">¿Usuario existe?</text>
+                
+                <!-- Validar contraseña -->
+                <polygon points="300,350 380,380 300,410 220,380" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="300" y="385" text-anchor="middle" fill="#ffffff" font-size="10">¿Contraseña correcta?</text>
+                
+                <!-- Incrementar intentos -->
+                <rect x="450" y="360" width="120" height="40" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="510" y="385" text-anchor="middle" fill="#ffffff" font-size="10">intentos = intentos + 1</text>
+                
+                <!-- Verificar intentos -->
+                <polygon points="510,430 580,460 510,490 440,460" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="510" y="465" text-anchor="middle" fill="#ffffff" font-size="9">¿intentos &lt; 3?</text>
+                
+                <!-- Acceso Permitido -->
+                <rect x="220" y="450" width="120" height="40" fill="#1a1a2e" stroke="#10b981" stroke-width="2"/>
+                <text x="280" y="475" text-anchor="middle" fill="#ffffff" font-size="11">ACCESO PERMITIDO</text>
+                
+                <!-- Usuario Inválido -->
+                <rect x="50" y="270" width="120" height="40" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="110" y="295" text-anchor="middle" fill="#ffffff" font-size="10">Usuario inválido</text>
+                
+                <!-- Cuenta Bloqueada -->
+                <rect x="450" y="520" width="120" height="40" fill="#1a1a2e" stroke="#ef4444" stroke-width="2"/>
+                <text x="510" y="545" text-anchor="middle" fill="#ffffff" font-size="10">CUENTA BLOQUEADA</text>
+                
+                <!-- Fin -->
+                <ellipse cx="300" cy="600" rx="60" ry="20" fill="#1a1a2e" stroke="#00d4ff" stroke-width="2"/>
+                <text x="300" y="606" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="600">FIN</text>
+                
+                <!-- Conexiones principales -->
+                <line x1="300" y1="50" x2="300" y2="70" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="300" y1="105" x2="300" y2="130" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="300" y1="170" x2="300" y2="190" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="300" y1="230" x2="300" y2="260" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="300" y1="320" x2="300" y2="350" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="300" y1="410" x2="280" y2="450" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="380" y1="380" x2="450" y2="380" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="510" y1="400" x2="510" y2="430" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="220" y1="290" x2="170" y2="290" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="510" y1="490" x2="510" y2="520" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- Bucle de reintento -->
+                <line x1="440" y1="460" x2="100" y2="460" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="100" y1="460" x2="100" y2="150" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="100" y1="150" x2="220" y2="150" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- Caminos al fin -->
+                <line x1="280" y1="490" x2="280" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="280" y1="580" x2="300" y2="580" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow2)"/>
+                <line x1="110" y1="310" x2="110" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="110" y1="580" x2="240" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="510" y1="560" x2="510" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                <line x1="510" y1="580" x2="360" y2="580" stroke="#00d4ff" stroke-width="2"/>
+                
+                <!-- Etiquetas -->
+                <text x="320" y="370" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="320" y="405" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="190" y="280" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="420" y="370" fill="#ef4444" font-size="10" font-weight="600">No</text>
+                <text x="400" y="450" fill="#10b981" font-size="10" font-weight="600">Sí</text>
+                <text x="520" y="510" fill="#ef4444" font-size="10" font-weight="600">No</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="example-card" style="margin-top: 2rem;">
+          <h4 class="example-title">🎯 Ejercicios Prácticos Recomendados</h4>
+          <div class="grid">
+            <div>
+              <h5 style="color: var(--accent-secondary); margin-bottom: 0.5rem;">Nivel Básico</h5>
+              <ul class="feature-list" style="margin-bottom: 1.5rem;">
+                <li>
+                  <div class="list-icon">1</div>
+                  <div>Calcular el área de un círculo dado su radio</div>
+                </li>
+                <li>
+                  <div class="list-icon">2</div>
+                  <div>Determinar si un número es positivo, negativo o cero</div>
+                </li>
+                <li>
+                  <div class="list-icon">3</div>
+                  <div>Convertir temperatura de Celsius a Fahrenheit</div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h5 style="color: var(--accent-secondary); margin-bottom: 0.5rem;">Nivel Intermedio</h5>
+              <ul class="feature-list">
+                <li>
+                  <div class="list-icon">1</div>
+                  <div>Calcular el factorial de un número</div>
+                </li>
+                <li>
+                  <div class="list-icon">2</div>
+                  <div>Validar si un año es bisiesto</div>
+                </li>
+                <li>
+                  <div class="list-icon">3</div>
+                  <div>Sistema de calificaciones con promedios</div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============== Footer =============== -->
+  <footer class="footer">
+    <div class="container">
+      <p>
+        📚 Recursos educativos sobre algoritmos y diagramas de flujo<br>
+        💻 Desarrollado con HTML, CSS y SVG • ⚡ Optimizado para aprendizaje visual
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling para navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Efecto parallax suave en el header
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const header = document.querySelector('.header');
+      
+      if (scrolled > 100) {
+        header.style.background = 'rgba(26, 26, 46, 0.95)';
+      } else {
+        header.style.background = 'rgba(26, 26, 46, 0.8)';
+      }
+    });
+
+    // Animaciones desactivadas - elementos siempre visibles
+  </script>
+</body>
+</html>

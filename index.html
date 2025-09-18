@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mis Cursos de Informática</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: 
+        linear-gradient(to bottom, 
+          transparent 80%, 
+          rgba(13, 25, 71, 0.8) 90%, 
+          rgba(13, 25, 71, 0.95) 100%),
+        url('https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2832&q=80') center top/cover no-repeat,
+        linear-gradient(135deg, 
+          rgba(13, 25, 71, 0.95) 0%, 
+          rgba(30, 39, 113, 0.9) 30%, 
+          rgba(65, 51, 153, 0.85) 70%, 
+          rgba(13, 25, 71, 0.9) 100%);
+      background-color: #0d1947;
+      color: #f8fafc;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      position: relative;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      text-align: left;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(135deg, #e2e8f0 0%, #60a5fa 50%, #8b5cf6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 2px 10px rgba(59, 130, 246, 0.3);
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: rgba(248, 250, 252, 0.9);
+      max-width: 700px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+      font-weight: 400;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 1.5rem;
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      align-items: start;
+    }
+
+    .sidebar {
+      background: rgba(30, 39, 113, 0.4);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      position: sticky;
+      top: 1rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.1) 0%, 
+        rgba(168, 85, 247, 0.05) 100%);
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+
+    .sidebar:hover::before {
+      opacity: 1;
+    }
+
+    .sidebar:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59, 130, 246, 0.5);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.2);
+    }
+
+    .sidebar h2 {
+      color: #cbd5e1;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+    }
+
+    .sidebar h2::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 2px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar li {
+      margin-bottom: 0.4rem;
+    }
+
+    .sidebar a {
+      color: rgba(248, 250, 252, 0.9);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      display: block;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 500;
+      font-size: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(59, 130, 246, 0.3), 
+        transparent);
+      transition: left 0.5s ease;
+    }
+
+    .sidebar a:hover::before {
+      left: 100%;
+    }
+
+    .sidebar a:hover {
+      background: rgba(59, 130, 246, 0.25);
+      border-color: rgba(59, 130, 246, 0.6);
+      color: #f1f5f9;
+      transform: translateX(6px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+    }
+
+    main {
+      background: rgba(30, 39, 113, 0.4);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      padding: 2rem;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.08) 0%, 
+        rgba(168, 85, 247, 0.04) 100%);
+      border-radius: 16px;
+      pointer-events: none;
+    }
+
+    main h2 {
+      color: #cbd5e1;
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    main > p {
+      color: rgba(248, 250, 252, 0.9);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 1rem auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Sección Genially */
+    .genially-section {
+      background: rgba(65, 51, 153, 0.3);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 14px;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .genially-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(59, 130, 246, 0.1) 0%, 
+        rgba(168, 85, 247, 0.05) 100%);
+      border-radius: 14px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .genially-section h3 {
+      color: #e2e8f0;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .genially-container {
+      background: rgba(13, 25, 71, 0.6);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1rem 0;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .genially-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, 
+        #3b82f6, #8b5cf6, #3b82f6);
+      border-radius: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .genially-container:hover::before {
+      opacity: 0.6;
+    }
+
+    .genially-container:hover {
+      transform: scale(1.02);
+      background: rgba(13, 25, 71, 0.8);
+    }
+
+    .genially-placeholder {
+      text-align: center;
+      color: rgba(248, 250, 252, 0.8);
+      z-index: 3;
+      position: relative;
+    }
+
+    .genially-placeholder::before {
+      content: '⚡';
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.5));
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    /* Sección Avisos */
+    .avisos-section {
+      background: rgba(65, 51, 153, 0.3);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 14px;
+      padding: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avisos-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.1) 0%, 
+        rgba(59, 130, 246, 0.05) 100%);
+      border-radius: 14px;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .avisos-title {
+      color: #fbbf24;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .avisos-content {
+      background: rgba(13, 25, 71, 0.6);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      padding: 1.2rem;
+      color: rgba(248, 250, 252, 0.95);
+      text-align: left;
+      min-height: 120px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, 
+        rgba(245, 158, 11, 0.4) 0%, 
+        rgba(59, 130, 246, 0.3) 100%);
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: #fbbf24;
+      font-weight: 600;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+    }
+
+    footer {
+      background: rgba(13, 25, 71, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    footer p {
+      color: rgba(248, 250, 252, 0.7);
+      font-size: 0.8rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .container {
+        grid-template-columns: 250px 1fr 250px;
+        gap: 1.2rem;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .sidebar {
+        position: static;
+      }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      header p {
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+      
+      header {
+        padding: 1.2rem 1rem;
+      }
+      
+      header h1 {
+        font-size: 1.6rem;
+      }
+      
+      .sidebar, main {
+        padding: 1.2rem;
+      }
+      
+      .genially-container {
+        padding: 1.5rem;
+        min-height: 220px;
+      }
+    }
+
+    /* Efectos de entrada */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .sidebar, main {
+      animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .sidebar.left { animation-delay: 0.1s; }
+    main { animation-delay: 0.2s; }
+    .sidebar.right { animation-delay: 0.3s; }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(13, 25, 71, 0.3);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cursos de Informática</h1>
+    <p>Índice donde pueden encontrar los temas trabajados en el año dependiendo del curso. Encontrarán páginas y documentos con materiales y recursos para aprender e introducirse a diversos conceptos y temas relacionados a informática.</p>
+  </header>
+
+  <div class="container">
+    <!-- Columna izquierda -->
+    <aside class="sidebar left">
+      <h2>7mos (7 y 8)</h2>
+      <ul>
+        <li><a href="cursos/9no/tema1.html">Ciudadanía Digital</a></li>
+        <li><a href="cursos/7mo/tema1.html">Tema 1: Algoritmos y Diagramas</a></li>
+        <li><a href="cursos/7mo/tema3.html">Estructuras de Control</a></li>
+        <!-- 
+        <li><a href="#">Tema 4</a></li>
+        <li><a href="#">Tema 5</a></li>
+        <li><a href="#">Tema 6</a></li>
+        <li><a href="#">Tema 7</a></li>
+        <li><a href="#">Tema 8</a></li>
+        <li><a href="#">Tema 9</a></li>
+        <li><a href="#">Tema 10</a></li>-->
+      </ul>
+     <!-- Contenido central 
+      <h2>Curso 2</h2>
+      <ul>
+        <li><a href="#">Tema 1</a></li>
+        <li><a href="#">Tema 2</a></li>
+        <li><a href="cursos/8vo/tema3.html">Tema 3</a></li>
+        <li><a href="#">Tema 4</a></li>
+        <li><a href="#">Tema 5</a></li>
+        <li><a href="#">Tema 6</a></li>
+        <li><a href="#">Tema 7</a></li>
+        <li><a href="#">Tema 8</a></li>
+        <li><a href="#">Tema 9</a></li>
+        <li><a href="#">Tema 10</a></li>
+      </ul>
+      -->
+    </aside>
+
+    <!-- Contenido central -->
+    <main>
+      <h2>Bienvenido  </h2>
+      <p>
+        Aquí encontrarás toda la información relacionada con los cursos de informática.
+        En las columnas de los costados tienes los enlaces a los temas de cada curso.  
+        Haz clic en cualquiera de ellos para explorar los contenidos.
+      </p>
+
+      <!-- Sección Genially -->
+      <div class="genially-section">
+        <h3>Historia de la informática</h3>
+        <p style="color: rgba(248, 250, 252, 0.8); margin-bottom: 0.8rem; text-align: center; font-size: 0.85rem;">Los comienzos del mundo de la informática</p>
+        
+        <div class="genially-container">
+<div style="width: 100%;"><div style="position: relative; padding-bottom: 56.25%; padding-top: 0; height: 0;"><iframe title="Historia de la Informática" frameborder="0" width="1200" height="675" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://view.genially.com/68cb7503d8c43605c59bfb97" type="text/html" allowscriptaccess="always" allowfullscreen="true" scrolling="yes" allownetworking="all"></iframe> </div> </div>        </div>
+      </div>
+
+      <!-- Sección Avisos -->
+      <div class="avisos-section">
+        <h2 class="avisos-title">Datos Importantes</h2>
+        <div class="avisos-content">
+          <p><span class="highlight">Información actualizada</span></p>
+          <br>
+          <p>• <strong>Próxima evaluación para 9no:</strong> 26/09</p>
+          <p>• <strong>Recursos nuevos:</strong> Materiales adicionales disponibles</p>
+          <p>• <strong>Horario de consultas:</strong> 24/7 Por crea o gmail: silv4gus@gmail.con</p>
+          <br>
+          <p style="opacity: 0.8; font-style: italic;">En este apartado se ectualizarán las fechas de escritos, evaluaciones, presentaciones, etc. Tambien encontrarás los recursos necesarios para dichas instancias de evaluación en la presente página.</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Columna derecha -->
+    <aside class="sidebar right">
+      <h2>9nos Aki</h2>
+      <ul>
+        <li><a href="cursos/9no/tema1.html">Ciudadanía Digital</a></li>
+        <li><a href="cursos/9no/tema2.html">Qué es una página web y cómo empezar</a></li>
+        <li><a href="cursos/9no/tema3.html">HTML y CSS básico</a></li>
+        <li><a href="cursos/9no/tema4.html">HTML</a></li>
+        <li><a href="cursos/9no/tema6.html">CSS</a></li>
+        <li><a href="cursos/9no/tema5.html">FLEXBOX</a></li>
+        <li><a href="cursos/9no/tema7.html">Más funcionalidades HTML y CSS</a></li>
+         <!--  
+        <li><a href="#">Tema 8</a></li>
+        <li><a href="#">Tema 9</a></li>
+        <li><a href="#">Tema 10</a></li>
+         -->
+      </ul>
+
+      <h2>Consignas</h2>
+      <ul>
+        <li><a href="#">Última entrega</a></li>
+        <li><a href="#">Estructura básica Página web</a></li>
+        <li><a href="#">Podcast Ciudadanía Digital</a></li>
+        <!--
+        <li><a href="#">Tema 4</a></li>
+        <li><a href="#">Tema 5</a></li>
+        <li><a href="#">Tema 6</a></li>
+        <li><a href="#">Tema 7</a></li>
+        <li><a href="#">Tema 8</a></li>
+        <li><a href="#">Tema 9</a></li>
+        <li><a href="#">Tema 10</a></li>
+        -->
+      </ul>
+    </aside>
+  </div>
+
+  <footer>
+    <p>© 2025 - silv4gus@gmail.com / Todos los derechos reservados.</p>
+  </footer>
+</body>
+</html>

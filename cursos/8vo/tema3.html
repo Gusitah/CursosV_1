@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Páginas Web, HTML y CSS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background: #4a90e2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 20px;
+      margin: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #4a90e2;
+    }
+    code {
+      background: #eee;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+    }
+    .example {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Páginas Web, HTML y CSS</h1>
+    <p>Guía básica para entender cómo funcionan</p>
+  </header>
+
+  <section>
+    <h2>¿Qué es una página web?</h2>
+    <p>
+      Una <strong>página web</strong> es un documento digital que forma parte de un sitio web y puede visualizarse en un navegador (como Chrome, Firefox o Edge). 
+      Generalmente está construida con tres tecnologías principales:
+    </p>
+    <ul>
+      <li><strong>HTML</strong> (estructura)</li>
+      <li><strong>CSS</strong> (estilos y diseño)</li>
+      <li><strong>JavaScript</strong> (interactividad)</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>¿Qué es HTML?</h2>
+    <p>
+      <strong>HTML</strong> significa <em>HyperText Markup Language</em>. Es el lenguaje que da la <strong>estructura</strong> a una página web.
+      Permite organizar títulos, párrafos, imágenes, enlaces y otros elementos.
+    </p>
+
+    <h3>Estructura básica de un documento HTML</h3>
+    <div class="example">
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Mi primera página&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;¡Hola Mundo!&lt;/h1&gt;
+    &lt;p&gt;Este es un párrafo.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+    </div>
+
+    <h3>Etiquetas básicas en HTML</h3>
+    <ul>
+      <li><code>&lt;h1&gt;...&lt;/h1&gt;</code> → Títulos</li>
+      <li><code>&lt;p&gt;...&lt;/p&gt;</code> → Párrafos</li>
+      <li><code>&lt;a href="..."&gt;...&lt;/a&gt;</code> → Enlaces</li>
+      <li><code>&lt;img src="imagen.jpg" alt="texto"&gt;</code> → Imágenes</li>
+      <li><code>&lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;</code> → Listas</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>¿Qué es CSS?</h2>
+    <p>
+      <strong>CSS</strong> significa <em>Cascading Style Sheets</em> (Hojas de estilo en cascada). 
+      Se utiliza para dar <strong>diseño y apariencia</strong> a las páginas web: colores, tamaños, fuentes, márgenes, bordes, etc.
+    </p>
+
+    <h3>Ejemplo básico de CSS</h3>
+    <div class="example">
+<pre>
+body {
+  background-color: lightblue;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: darkblue;
+  text-align: center;
+}
+</pre>
+    </div>
+
+    <p>Con este código, el fondo se vuelve azul claro, el texto usa la fuente Arial y los títulos <code>&lt;h1&gt;</code> se muestran centrados y en color azul oscuro.</p>
+  </section>
+</body>
+</html>
+ 
